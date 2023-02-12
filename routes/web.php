@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DaftarPelatihController;
+use App\Http\Controllers\Admin\DaftarUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Pelatih\PelatihController;
 use App\Http\Controllers\User\UserController;
@@ -30,6 +32,9 @@ Route::middleware(['auth'])->group(function () {
          //Middleware Admin
          Route::middleware(['admin'])->group(function () {
             Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin');
+            Route::resource('admin/daftarpelatih', DaftarPelatihController::class);
+            Route::resource('admin/daftaruser', DaftarUserController::class);
+            
         });
 
         //Middleware Pelatih
