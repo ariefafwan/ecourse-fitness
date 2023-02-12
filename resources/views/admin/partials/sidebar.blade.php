@@ -50,20 +50,20 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item  {{ ($page == "Daftar User") ? 'active' : '' }}">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('daftaruser.index') }}">
             <i class="fas fa-users"></i>
             <span>Daftar User</span>
         </a>
     </li>
 
     <li class="nav-item  {{ ($page == "Daftar Divisi") ? 'active' : '' }}">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('daftarpelatih.index') }}">
             <i class="fa fa-briefcase" aria-hidden="true"></i>
-            <span>Daftar Divisi</span>
+            <span>Daftar Pelatih</span>
         </a>
     </li>
 
-    <li class="nav-item  {{ ($page == "Daftar Pertanyaan") ? 'active' : '' }}">
+    {{-- <li class="nav-item  {{ ($page == "Daftar Pertanyaan") ? 'active' : '' }}">
         <a class="nav-link" href="#}">
             <i class="fa fa-question" aria-hidden="true"></i>
             <span>Pertanyaan</span>
@@ -75,7 +75,7 @@
             <i class="fa fa-industry" aria-hidden="true"></i>
             <span>Hasil Penilaian</span>
         </a>
-    </li>
+    </li> --}}
     
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
