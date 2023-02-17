@@ -46,4 +46,19 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function aspek()
+    {
+        return $this->hasMany(Aspek::class);
+    }
+
+    public function program()
+    {
+        return $this->hasMany(Program::class);
+    }
+
+    public function kind()
+    {
+        return $this->hasMany(Kind::class);
+    }
 }
