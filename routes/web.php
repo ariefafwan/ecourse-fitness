@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DaftarPelatihController;
 use App\Http\Controllers\Admin\DaftarUserController;
+use App\Http\Controllers\Admin\LatihanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Pelatih\PelatihController;
+use App\Http\Controllers\Pelatih\RumusController;
 use App\Http\Controllers\User\EditUserController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -35,12 +37,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin');
             Route::resource('admin/daftarpelatih', DaftarPelatihController::class);
             Route::resource('admin/daftaruser', DaftarUserController::class);
-            
+            Route::resource('admin/latihan', LatihanController::class);
         });
 
         //Middleware Pelatih
         Route::middleware(['pelatih'])->group(function () {
             Route::get('pelatih/dashboard', [PelatihController::class, 'index'])->name('pelatih');
+            Route::resource('pelatih/rumus', RumusController::class);
         });
 
         //Middleware User

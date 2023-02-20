@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Kind;
+use App\Models\Latihan;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class KindController extends Controller
+class LatihanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +19,10 @@ class KindController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $page = "Daftar Latihan";
+        $latihan = Latihan::all();
+        return view('admin.latihan.daftar', compact('user', 'page', 'latihan'));
     }
 
     /**
@@ -27,7 +32,10 @@ class KindController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+        $page = "Tambah Latihan";
+        $latihan = Latihan::all();
+        return view('admin.latihan.create', compact('user', 'page', 'latihan'));
     }
 
     /**
@@ -38,7 +46,15 @@ class KindController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dtUpload = new Latihan();
+        $dtUpload->name = $request->name;
+        $dtUpload->banyak = $request->banyak;
+
+        $dtUpload->save();
+
+
+        return redirect()->route('latihan.index')
+            ->with('updatesuccess', 'Latihan Berhasil Ditambahkan');
     }
 
     /**
@@ -60,7 +76,10 @@ class KindController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $page = "Edit Latihan";
+        $latihan = Latihan::findOrFail($id);
+        return view('admin.latihan.edit', compact('user', 'page', 'latihan'));
     }
 
     /**
@@ -72,7 +91,15 @@ class KindController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dtUpload = Latihan::find($id);
+        $dtUpload->name = $request->name;
+        $dtUpload->banyak = $request->banyak;
+
+        $dtUpload->save();
+
+
+        return redirect()->route('latihan.index')
+            ->with('updatesuccess', 'Latihan Berhasil Ditambahkan');
     }
 
     /**
@@ -83,6 +110,10 @@ class KindController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $latihan = Latihan::findOrFail($id);
+        $latihan->delete();
+
+        return redirect()->route('latihan.index')
+            ->with('updatesuccess', 'Berhasil Dihapus');
     }
 }
