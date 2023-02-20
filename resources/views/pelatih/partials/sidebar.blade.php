@@ -49,31 +49,33 @@
     </li> --}}
 
     <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item  {{ ($page == "Daftar User") ? 'active' : '' }}">
-        <a class="nav-link" href="#">
-            <i class="fas fa-users"></i>
-            <span>Daftar User</span>
-        </a>
-    </li>
 
-    <li class="nav-item  {{ ($page == "Daftar Divisi") ? 'active' : '' }}">
-        <a class="nav-link" href="#">
-            <i class="fa fa-briefcase" aria-hidden="true"></i>
-            <span>Daftar Divisi</span>
-        </a>
-    </li>
 
-    <li class="nav-item  {{ ($page == "Daftar Pertanyaan") ? 'active' : '' }}">
+    <li class="nav-item  {{ ($page == "Daftar Latihan") ? 'active' : '' }}">
         <a class="nav-link" href="#}">
-            <i class="fa fa-question" aria-hidden="true"></i>
-            <span>Pertanyaan</span>
+            <i class="fa fa-gamepad" aria-hidden="true"></i>
+            <span>Program Latihan Berjalan</span>
         </a>
     </li>
 
-    <li class="nav-item  {{ ($page == "Hasil Penilaian") ? 'active' : '' }}">
+    <li class="nav-item  {{ ($page == "Hasil Latihan") ? 'active' : '' }}">
         <a class="nav-link" href="#">
-            <i class="fa fa-industry" aria-hidden="true"></i>
-            <span>Hasil Penilaian</span>
+            <i class="fa fa-id-card" aria-hidden="true"></i>
+            <span>Hasil Program</span>
+        </a>
+    </li>
+
+    <li class="nav-item  {{ ($page == "Permintaan Latihan") ? 'active' : '' }}">
+        <a class="nav-link" href="#">
+            <i class="fa fa-reply-all" aria-hidden="true"></i>
+            <span>Permintaan Latihan</span>
+        </a>
+    </li>
+
+    <li class="nav-item  {{ ($page == "Rumus Latihan") ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('rumus.index') }}">
+            <i class="fa fa-tasks" aria-hidden="true"></i>
+            <span>Rumus Latihan</span>
         </a>
     </li>
     

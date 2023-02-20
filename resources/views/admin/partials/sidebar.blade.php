@@ -56,21 +56,21 @@
         </a>
     </li>
 
-    <li class="nav-item  {{ ($page == "Daftar Divisi") ? 'active' : '' }}">
+    <li class="nav-item  {{ ($page == "Daftar Pelatih") ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('daftarpelatih.index') }}">
             <i class="fa fa-briefcase" aria-hidden="true"></i>
             <span>Daftar Pelatih</span>
         </a>
     </li>
 
-    {{-- <li class="nav-item  {{ ($page == "Daftar Pertanyaan") ? 'active' : '' }}">
-        <a class="nav-link" href="#}">
-            <i class="fa fa-question" aria-hidden="true"></i>
-            <span>Pertanyaan</span>
+    <li class="nav-item  {{ ($page == "Daftar Latihan") ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('latihan.index') }}">
+            <i class="fa fa-gamepad" aria-hidden="true"></i>
+            <span>Daftar Latihan</span>
         </a>
     </li>
 
-    <li class="nav-item  {{ ($page == "Hasil Penilaian") ? 'active' : '' }}">
+    {{-- <li class="nav-item  {{ ($page == "Hasil Penilaian") ? 'active' : '' }}">
         <a class="nav-link" href="#">
             <i class="fa fa-industry" aria-hidden="true"></i>
             <span>Hasil Penilaian</span>

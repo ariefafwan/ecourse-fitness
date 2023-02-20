@@ -34,14 +34,14 @@
     <li class="nav-item {{ ($page === "Hasil Penilaian")  ? 'active' : '' }}">
         <a class="nav-link collapsed" href="{{ route ('hasilpenilaian') }}">
             <i class="fas fa-file-alt fa-cog"></i>
-            <span>Hasil Penilaian</span>
+            <span>Hasil Latihan</span>
         </a>
     </li>
 
     <li class="nav-item {{ ($page === "Edit User")  ? 'active' : '' }}">
         <a class="nav-link collapsed" href="{{ route('edituser.edit',$user->id) }}">
             <i class="fa fa-address-book" aria-hidden="true"></i>
-            <span>Edit User</span>
+            <span>Permintaan Latihan</span>
         </a>
     </li>
 
