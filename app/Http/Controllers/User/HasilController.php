@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
-use App\Models\Role;
-use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DaftarPelatihController extends Controller
+class HasilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,14 +15,7 @@ class DaftarPelatihController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $page = "Daftar Pelatih";
-        $role = Role::all();
-        $pelatih = User::all()->where('role_id', '2');
-        if ($pelatih->isEmpty()) {
-            return view('admin.dpelatih.belum', compact('user', 'pelatih', 'page', 'role'));
-        }
-        return view('admin.dpelatih.daftarpelatih', compact('user', 'pelatih', 'page', 'role'));
+        //
     }
 
     /**

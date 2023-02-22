@@ -1,8 +1,8 @@
 <!-- Footer -->
-<footer class="sticky-footer bg-white">
+<footer class="sticky-footer bg-primary">
     <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright @ &copy; GYM COY</span>
+        <div class="copyright text-center text-light my-auto">
+            <span>Copyright @UnimalCallCenter &copy;GYM COY</span>
         </div>
     </div>
 </footer>

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
-use App\Models\Role;
+use App\Models\Aspek;
 use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DaftarPelatihController extends Controller
+class AspekController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,13 +18,14 @@ class DaftarPelatihController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $page = "Daftar Pelatih";
-        $role = Role::all();
-        $pelatih = User::all()->where('role_id', '2');
-        if ($pelatih->isEmpty()) {
-            return view('admin.dpelatih.belum', compact('user', 'pelatih', 'page', 'role'));
+        $page = "Tambah Fokus Latihan Anda";
+
+        $aspek = Aspek::all()->where('user_id', Auth::user()->id);
+        if ($aspek->isEmpty()) {
+            return redirect()->route('aspek.create');
         }
-        return view('admin.dpelatih.daftarpelatih', compact('user', 'pelatih', 'page', 'role'));
+
+        return view('user.aspek.aspek', compact('user', 'page', 'aspek'));
     }
 
     /**
@@ -34,7 +35,10 @@ class DaftarPelatihController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+        $page = "Tambah Fokus Latihan Anda";
+        $aspek = Aspek::all();
+        return view('user.aspek.tambah', compact('user', 'page', 'aspek'));
     }
 
     /**
@@ -44,8 +48,21 @@ class DaftarPelatihController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {        
+        $dtUpload = new Aspek();
+        $dtUpload->user_id = $request->user_id;
+        $dtUpload->fokus = $request->fokus;
+        $dtUpload->target = $request->target;
+        $dtUpload->tingkat = $request->tingkat;
+        $dtUpload->motivasi = $request->motivasi;
+        $dtUpload->aktivitas = $request->aktivitas;
+        $dtUpload->runtutan = $request->runtutan;
+        $dtUpload->bb = $request->bb;
+        $dtUpload->tb = $request->tb;
+
+        $dtUpload->save();
+
+        return redirect()->route('permintaan.index')->with(['message' => 'News created successfully!']);
     }
 
     /**
