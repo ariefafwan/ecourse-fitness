@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('permintaans', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->bigInteger('aspek_id')->unsigned();
             $table->foreign('aspek_id')->references('id')->on('aspeks')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('user_id')->unsigned();

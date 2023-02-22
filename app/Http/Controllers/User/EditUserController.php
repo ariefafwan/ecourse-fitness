@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Aspek;
 use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class EditUserController extends Controller
 {
@@ -50,7 +52,8 @@ class EditUserController extends Controller
     {
         $user = Auth::user();
         $page = "Profile User";
-        return view('user.user', compact('user', 'page'));
+        $aspek = Aspek::all()->where('user_id', Auth::user()->id);
+        return view('user.profile.user', compact('user', 'page', 'aspek'));
     }
 
     /**
@@ -63,7 +66,7 @@ class EditUserController extends Controller
     {
         $user = Auth::user($id);
         $page = "Edit Profile User";
-        return view('user.edit', compact('user', 'page'));
+        return view('user.profile.edit', compact('user', 'page'));
     }
 
     /**
@@ -76,21 +79,31 @@ class EditUserController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user($id);
-        
-        $nm = $request->profile_img;
-        $namaFile = $nm->getClientOriginalName();
-
         $dtUpload = User::find($id);
-        $dtUpload->name = $request->name;
-        $dtUpload->profile_img = $namaFile;
-        $dtUpload->nippos = $request->nippos;
-        $dtUpload->nmrhp = $request->nmrhp;
-        $dtUpload->alamat = $request->alamat;
-        $dtUpload->kantor = $request->kantor;
+        
+            //upload
+            $nm = $request->profile_img;
+            $namaFile = $nm->getClientOriginalName();
 
-        $nm->move(public_path() . '/img/profil', $namaFile);
-        $dtUpload->save();
+            // $request->validate([
+            //     'profile_img'    => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            //     'name'           => 'required|min:5',
+            //     'nmrhp'           => 'required|min:8',
+            //     'alamat'        => 'required|min:10',
+            //     'jeniskl'        => 'required|min:10'
+            // ]);
 
+            $dtUpload = User::find($id);
+            $dtUpload->name = $request->name;
+            $dtUpload->alamat = $request->alamat;
+            $dtUpload->profile_img = $namaFile;
+            $dtUpload->nmrhp = $request->nmrhp;
+            $dtUpload->jeniskl = $request->jeniskl;
+            
+            $nm->move(public_path() . '/img/profil', $namaFile);
+            $dtUpload->save();
+
+        //redirect to index
         return redirect()->route('edituser.show', $user->id)->with(['message' => 'News created successfully!']);
     }
 

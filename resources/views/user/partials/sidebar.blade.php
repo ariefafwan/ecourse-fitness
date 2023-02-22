@@ -30,18 +30,26 @@
             <span>Dashboard</span></a>
     </li>
 
-    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item {{ ($page === "Hasil Penilaian")  ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="{{ route ('hasilpenilaian') }}">
+        <a class="nav-link collapsed" href="{{ route ('aspek.index') }}">
             <i class="fas fa-file-alt fa-cog"></i>
-            <span>Hasil Latihan</span>
+            <span>Fokus Latihan</span>
+        </a>
+    </li>
+    
+    <!-- Nav Item - Pages Collapse Menu -->
+
+    <li class="nav-item {{ ($page === "Edit User")  ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="{{ route('permintaan.index') }}">
+            <i class="fa fa-address-book" aria-hidden="true"></i>
+            <span>Permintaan Latihan</span>
         </a>
     </li>
 
-    <li class="nav-item {{ ($page === "Edit User")  ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="{{ route('edituser.edit',$user->id) }}">
-            <i class="fa fa-address-book" aria-hidden="true"></i>
-            <span>Permintaan Latihan</span>
+    <li class="nav-item {{ ($page === "Hasil Penilaian")  ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="{{ route ('hasilpenilaian.index') }}">
+            <i class="fa fa-percent" aria-hidden="true"></i>
+            <span>Hasil Latihan</span>
         </a>
     </li>
 

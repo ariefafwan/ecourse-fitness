@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
-use App\Models\Role;
+use App\Models\Aspek;
+use App\Models\Permintaan;
 use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DaftarPelatihController extends Controller
+use function PHPUnit\Framework\at;
+
+class PermintaanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,13 +21,20 @@ class DaftarPelatihController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $page = "Daftar Pelatih";
-        $role = Role::all();
+        $page = "Order Pelatih Anda";
         $pelatih = User::all()->where('role_id', '2');
-        if ($pelatih->isEmpty()) {
-            return view('admin.dpelatih.belum', compact('user', 'pelatih', 'page', 'role'));
+        
+        $permintaan = Permintaan::all()->where('user_id', Auth::user()->id)->where('status', 'pengajuan');
+        
+        $aspek = Aspek::all()->where('user_id', Auth::user()->id);
+        if ($aspek->isEmpty()) {
+            return view('user.permintaan.belum', compact('user', 'page', 'pelatih', 'aspek' ,'permintaan'));
         }
-        return view('admin.dpelatih.daftarpelatih', compact('user', 'pelatih', 'page', 'role'));
+        else if ($permintaan->isEmpty()) {
+            return view('user.permintaan.ajukan', compact('user', 'page', 'pelatih', 'permintaan', 'aspek'));
+        }
+        
+        return view('user.permintaan.sudah', compact('user', 'page', 'pelatih', 'permintaan', 'aspek'));
     }
 
     /**
@@ -45,7 +55,17 @@ class DaftarPelatihController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dtUpload = new Permintaan();
+        $dtUpload->aspek_id = $request->aspek_id;
+        $dtUpload->user_id = $request->user_id;
+        $dtUpload->pelatih_id = $request->pelatih_id;
+        $dtUpload->status = $request->status;
+
+        $dtUpload->save();
+
+
+        return redirect()->route('permintaan.index')
+            ->with('updatesuccess', 'Permintaan Berhasil Ditambahkan');
     }
 
     /**
@@ -56,7 +76,7 @@ class DaftarPelatihController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

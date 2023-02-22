@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('fokus');
             $table->string('target');
+            $table->string('tingkat');
             $table->string('motivasi');
             $table->string('aktivitas');
             $table->string('runtutan');
