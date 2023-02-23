@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Latihan;
 
 class LatihanSeeder extends Seeder
 {
@@ -14,6 +15,9 @@ class LatihanSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Latihan::Create([
+            'name' => 'Push Up',
+            'banyak' => '52'
+        ]);
     }
 }
