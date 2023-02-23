@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\LatihanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Pelatih\PelatihController;
 use App\Http\Controllers\Pelatih\RumusController;
+use App\Http\Controllers\Pelatih\TerimaController;
 use App\Http\Controllers\User\AspekController;
 use App\Http\Controllers\User\EditUserController;
 use App\Http\Controllers\User\HasilController;
@@ -47,6 +48,9 @@ Route::middleware(['auth'])->group(function () {
         Route::middleware(['pelatih'])->group(function () {
             Route::get('pelatih/dashboard', [PelatihController::class, 'index'])->name('pelatih');
             Route::resource('pelatih/rumus', RumusController::class);
+            Route::resource('pelatih/terima', TerimaController::class);
+            Route::get('pelatih/diterima', [PelatihController::class, 'terima'])->name('diterima');
+            Route::get('pelatih/ditolak', [PelatihController::class, 'tolak'])->name('ditolak');
         });
 
         //Middleware User

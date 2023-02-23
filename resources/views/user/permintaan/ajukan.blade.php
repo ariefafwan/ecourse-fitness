@@ -46,7 +46,7 @@
                                 <input type="hidden" class="form-control" id="aspek_id" name="aspek_id" value="{{ $as->id }}" required>
                                 @endforeach
                                 <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{ Auth::user()->id }}" required>
-                                <input type="hidden" class="form-control" id="status" name="status" value="pengajuan" required>
+                                <input type="hidden" class="form-control" id="status" name="status" value="Pengajuan" required>
                             </form>
                             <a href="javascript:void(0)"
                                 onclick="event.preventDefault();
