@@ -19,5 +19,10 @@ class LatihanSeeder extends Seeder
             'name' => 'Push Up',
             'banyak' => '52'
         ]);
+
+        Latihan::Create([
+            'name' => 'Push Up',
+            'banyak' => '20'
+        ]);
     }
 }
