@@ -11,12 +11,12 @@ class Program extends Model
 
     public function user()
     {
-        return $this->belongsTo(user::class);
+        return $this->belongsTo(User::class);
     }
 
     public function kind()
     {
-        return $this->belongsTo(kind::class);
+        return $this->belongsTo(Kind::class);
     }
     
 }

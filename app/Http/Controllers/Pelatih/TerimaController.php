@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Pelatih;
 
-use App\Models\Aspek;
 use App\Models\Permintaan;
-use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use function PHPUnit\Framework\at;
-
-class PermintaanController extends Controller
+class TerimaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,20 +17,13 @@ class PermintaanController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $page = "Order Pelatih Anda";
-        $pelatih = User::all()->where('role_id', '2');
-        
-        $permintaan = Permintaan::all()->where('user_id', Auth::user()->id)->where('status', 'Pengajuan');
-        
-        $aspek = Aspek::all()->where('user_id', Auth::user()->id);
-        if ($aspek->isEmpty()) {
-            return view('user.permintaan.belum', compact('user', 'page', 'pelatih', 'aspek' ,'permintaan'));
+        $page = "Daftar Permintaan Program Latihan Terhadap Anda";
+        $permintaan = Permintaan::all()->where('pelatih_id', Auth::user()->id)->where('status', 'Pengajuan');
+        if ($permintaan->isEmpty()) {
+            return view('pelatih.permintaan.belum', compact('user', 'page', 'permintaan'));
         }
-        else if ($permintaan->isEmpty()) {
-            return view('user.permintaan.ajukan', compact('user', 'page', 'pelatih', 'permintaan', 'aspek'));
-        }
-        
-        return view('user.permintaan.sudah', compact('user', 'page', 'pelatih', 'permintaan', 'aspek'));
+
+        return view('pelatih.permintaan.permintaan', compact('user', 'page', 'permintaan'));
     }
 
     /**
@@ -55,17 +44,7 @@ class PermintaanController extends Controller
      */
     public function store(Request $request)
     {
-        $dtUpload = new Permintaan();
-        $dtUpload->aspek_id = $request->aspek_id;
-        $dtUpload->user_id = $request->user_id;
-        $dtUpload->pelatih_id = $request->pelatih_id;
-        $dtUpload->status = $request->status;
-
-        $dtUpload->save();
-
-
-        return redirect()->route('permintaan.index')
-            ->with('updatesuccess', 'Permintaan Berhasil Ditambahkan');
+        //
     }
 
     /**
@@ -76,7 +55,7 @@ class PermintaanController extends Controller
      */
     public function show($id)
     {
-        
+        //
     }
 
     /**
@@ -99,7 +78,15 @@ class PermintaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dtUpload = Permintaan::findOrFail($id);
+        
+        $dtUpload->status = $request->status;
+
+        $dtUpload->save();
+
+
+        return redirect()->route('terima.index')
+            ->with('updatesuccess', 'Permintaan Berhasil Ditambahkan');
     }
 
     /**

@@ -65,12 +65,22 @@
         </a>
     </li>
 
-    <li class="nav-item  {{ ($page == "Permintaan Latihan") ? 'active' : '' }}">
-        <a class="nav-link" href="#">
-            <i class="fa fa-reply-all" aria-hidden="true"></i>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+            aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-file-alt"></i>
             <span>Permintaan Latihan</span>
         </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Daftar Permintaan</h6>
+                <a class="collapse-item" href="{{ route('terima.index') }}">Masuk</a>
+                <a class="collapse-item" href="{{ route('diterima') }}">Diterima</a>
+                <a class="collapse-item" href="{{ route('ditolak') }}">Ditolak</a>
+            </div>
+        </div>
     </li>
+
 
     <li class="nav-item  {{ ($page == "Rumus Latihan") ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('rumus.index') }}">

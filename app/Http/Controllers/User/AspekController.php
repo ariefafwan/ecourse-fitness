@@ -24,7 +24,6 @@ class AspekController extends Controller
         if ($aspek->isEmpty()) {
             return redirect()->route('aspek.create');
         }
-
         return view('user.aspek.aspek', compact('user', 'page', 'aspek'));
     }
 
@@ -84,7 +83,10 @@ class AspekController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $page = "Edit Fokus Latihan Anda";
+        $aspek = Aspek::findOrFail($id);
+        return view('user.aspek.edit', compact('user', 'page', 'aspek'));
     }
 
     /**
@@ -96,7 +98,20 @@ class AspekController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dtUpload = Aspek::findOrFail($id);
+        $dtUpload->user_id = $request->user_id;
+        $dtUpload->fokus = $request->fokus;
+        $dtUpload->target = $request->target;
+        $dtUpload->tingkat = $request->tingkat;
+        $dtUpload->motivasi = $request->motivasi;
+        $dtUpload->aktivitas = $request->aktivitas;
+        $dtUpload->runtutan = $request->runtutan;
+        $dtUpload->bb = $request->bb;
+        $dtUpload->tb = $request->tb;
+
+        $dtUpload->save();
+
+        return redirect()->route('aspek.index')->with(['message' => 'News created successfully!']);
     }
 
     /**
