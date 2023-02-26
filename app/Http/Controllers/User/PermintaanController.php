@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Models\Aspek;
 use App\Models\Permintaan;
+use App\Models\Program;
 use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
@@ -62,7 +63,6 @@ class PermintaanController extends Controller
         $dtUpload->status = $request->status;
 
         $dtUpload->save();
-
 
         return redirect()->route('permintaan.index')
             ->with('updatesuccess', 'Permintaan Berhasil Ditambahkan');

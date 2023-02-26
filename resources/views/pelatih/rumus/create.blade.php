@@ -15,9 +15,10 @@
                         <div class="form-group">
                             <label for="Rumus">Nama Rumus</label>
                             <input type="text" name="name" class="form-control" id="name" required>
+
                         </div>
 
-                        <input type="hidden" name="pelatih_id" value="{{ Auth::user()->id }}" class="form-control" id="name" required>
+                        <input type="hidden" name="pelatih_id" value="{{ Auth::user()->id }}" class="form-control" id="pelatih_id" required>
 
                         <div class="mb-3">
                             <label for="user_id">Pilih Latihan 1</label>

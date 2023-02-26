@@ -52,18 +52,25 @@ class User extends Authenticatable
         return $this->hasMany(Aspek::class);
     }
 
-    public function program()
-    {
-        return $this->hasMany(Program::class);
-    }
+    // public function program()
+    // {
+    //     return $this->hasMany(Program::class);
+    // }
 
     public function kind()
     {
         return $this->hasMany(Kind::class);
     }
 
+    public function program()
+    {
+        return $this->hasMany(Program::class);
+    }
+
     public function permintaan()
     {
         return $this->hasMany(Permintaan::class);
     }
+
+    
 }

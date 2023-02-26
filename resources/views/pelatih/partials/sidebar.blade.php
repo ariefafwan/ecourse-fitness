@@ -52,7 +52,7 @@
 
 
     <li class="nav-item  {{ ($page == "Daftar Latihan") ? 'active' : '' }}">
-        <a class="nav-link" href="#}">
+        <a class="nav-link" href="{{ route('program.index') }}">
             <i class="fa fa-gamepad" aria-hidden="true"></i>
             <span>Program Latihan Berjalan</span>
         </a>

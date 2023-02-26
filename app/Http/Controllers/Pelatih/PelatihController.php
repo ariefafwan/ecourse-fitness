@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pelatih;
 
 use App\Models\Permintaan;
+use App\Models\Program;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,11 @@ class PelatihController extends Controller
             return view('pelatih.permintaan.belum', compact('user', 'page', 'permintaan'));
         }
 
-        return view('pelatih.permintaan.terima', compact('user', 'page', 'permintaan'));
+        $userid = Permintaan::all()->where('pelatih_id', Auth::user()->id)->where('status', 'Terima')->get('user_id');
+        $program = Program::all()->where('user_id', $userid)->count();
+        // $dt2 = DB::table('users')->get()->where('role_id', '3')->count();
+
+        return view('pelatih.permintaan.terima', compact('user', 'page', 'permintaan', 'userid', 'program'));
     }
 
     public function tolak()
