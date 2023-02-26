@@ -18,5 +18,15 @@ class Program extends Model
     {
         return $this->belongsTo(Kind::class);
     }
+
+    public function aspek()
+    {
+        return $this->belongsTo(Aspek::class);
+    }
+
+    public function permintaan()
+    {
+        return $this->belongsTo(Permintaan::class);
+    }
     
 }

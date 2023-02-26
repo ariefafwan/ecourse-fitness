@@ -18,7 +18,8 @@
                                 <th class="text-center">Alamat</th>
                                 <th class="text-center">Fokus Latihan</th>
                                 <th class="text-center">Status</th>
-                                <th class="text-center">Aksi</th>
+                                {{-- <th class="text-center">Tanggal Latihan</th> --}}
+                                {{-- <th class="text-center">Tambahkan Program</th> --}}
                             </tr>
                         </thead>
 
@@ -29,7 +30,14 @@
                                 <td align="center">{{ $row->user->name }}</td>
                                 <td align="center">{{ $row->user->nmrhp }}</td>
                                 <td align="center">{{ $row->user->alamat }}</td>
-                                <td align="center">{{ $row->aspek->fokus }}</td>
+                                <td align="center">{{ $row->aspek->fokus }}
+                                    <div class="btn-group">
+                                        {{-- <a href="" class="btn btn-primary btn-flat"><i class="fa fa-eye"></i></a> --}}
+                                        <a href="{{ route('terima.show',$row->id) }}" class="btn btn-warning btn-flat mr-2">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </td>
                                 {{-- <td align="center">{{ $row->status }}</td> --}}
                                 <td align="center">
                                     <div class="btn-group" >
@@ -48,24 +56,15 @@
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         </a>
                                     </div>    
+                                    {{-- {{ $row->status }} --}}
                                 </td>
-                                <td>
+                                {{-- <td align="center">{{ $row->tgl }}</td> --}}
+                                {{-- <td>
                                     <div class="btn-group">
-                                        {{-- <a href="" class="btn btn-primary btn-flat"><i class="fa fa-eye"></i></a> --}}
-                                        <a href="{{ route('rumus.edit',$row->id) }}" class="btn btn-warning btn-flat mr-2">
-                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        <a href="{{ route('terima.edit',$row->id) }}" class="btn btn-primary btn-flat mr-2">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
                                         </a>
-                                        
-                                        <a href="javascript:void(0)" class="btn btn-danger btn-flat"
-                                            onclick="event.preventDefault();
-                                                document.getElementById('rumus-delete-form-{{$row->id}}').submit();">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </a>
-                                        <form id="rumus-delete-form-{{$row->id}}" action="{{ route('rumus.destroy',$row->id) }}" method="POST" style="display: none;">
-                                            @csrf 
-                                            @method('DELETE')
-                                        </form>
-                                    </div>
+                                    </div> --}}
                                 </td>
                             </tr>
                             @endforeach

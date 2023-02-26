@@ -47,6 +47,7 @@ class RumusController extends Controller
     {
         $dtUpload = new Kind();
         $dtUpload->name = $request->name;
+        $dtUpload->pelatih_id = $request->pelatih_id;
         $dtUpload->latihan1_id = $request->latihan1_id;
 
         $dtUpload->save();
@@ -93,6 +94,7 @@ class RumusController extends Controller
     {
         $dtUpload = Kind::find($id);
         $dtUpload->name = $request->name;
+        $dtUpload->pelatih_id = $request->pelatih_id;
         $dtUpload->latihan1_id = $request->latihan1_id;
 
         $dtUpload->save();

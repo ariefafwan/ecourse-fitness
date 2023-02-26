@@ -22,6 +22,12 @@
                   <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div> --}}
+
+            {{-- <div class="col-md-12">
+                <label class="labels">Tanggal Latihan</label>
+                <input type="date" name="tgl" id="tgl" class="form-control" placeholder="Tanggal Latihan" required>
+            </div> --}}
+
             <section class="light">
                 @foreach ($pelatih as $row)
                     <article class="postcard dark red">
@@ -41,6 +47,10 @@
                             {{-- <a href="{{ route('permintaan.create') }}"><i class="fa fa-bookmark" aria-hidden="true"></i> Order Sekarang</a> --}}
                             <form id="user-update-form-{{$row->id}}" action="{{ route('permintaan.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                {{-- <div class="postcard__preview-txt mb-2">
+                                <label class="labels">Tentukan Tanggal Latihan Anda</label>
+                                <input type="date" name="tgl" id="tgl" class="form-control" placeholder="Tanggal Latihan" required>
+                                </div> --}}
                                 <input type="hidden" class="form-control" id="pelatih_id" name="pelatih_id" value="{{ $row->id }}" required>
                                 @foreach ($aspek as $as)
                                 <input type="hidden" class="form-control" id="aspek_id" name="aspek_id" value="{{ $as->id }}" required>
@@ -52,7 +62,7 @@
                                 onclick="event.preventDefault();
                                 document.getElementById('user-update-form-{{$row->id}}').submit();">
                                 <i class="fa fa-bookmark" aria-hidden="true"></i>
-                                Order Sekarang
+                                Pilih Pelatih
                             </a>
                         </div>
                     </article>

@@ -18,4 +18,9 @@ class Permintaan extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function program()
+    {
+        return $this->hasMany(Program::class);
+    }
 }

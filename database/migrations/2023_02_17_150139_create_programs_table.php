@@ -21,10 +21,9 @@ return new class extends Migration
             $table->foreign('pelatih_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('permintaan_id')->unsigned();
             $table->foreign('permintaan_id')->references('id')->on('permintaans')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('runtutanke');
             $table->date('tgl');
-            $table->string('status');
-            $table->bigInteger('kind_id')->unsigned();
+            $table->string('status')->nullable();
+            $table->bigInteger('kind_id')->unsigned()->nullable();
             $table->foreign('kind_id')->references('id')->on('kinds')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
