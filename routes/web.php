@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DaftarPelatihController;
 use App\Http\Controllers\Admin\DaftarUserController;
 use App\Http\Controllers\Admin\LatihanController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Pelatih\PelatihController;
 use App\Http\Controllers\Pelatih\ProgramController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\User\EditUserController;
 use App\Http\Controllers\User\HasilController;
 use App\Http\Controllers\User\PermintaanController;
 use App\Http\Controllers\User\UserController;
+use App\Models\Berita;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,8 +31,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $berita = Berita::All();
+    return view('welcome', compact('berita'));
 });
+
+Route::resource('berita', BeritaController::class);
 
 Auth::routes();
 
