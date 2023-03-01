@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DaftarUserController;
 use App\Http\Controllers\Admin\LatihanController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Pelatih\HasilLatihanController;
 use App\Http\Controllers\Pelatih\PelatihController;
 use App\Http\Controllers\Pelatih\ProgramController;
 use App\Http\Controllers\Pelatih\RumusController;
@@ -58,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('pelatih/diterima', [PelatihController::class, 'terima'])->name('diterima');
             Route::get('pelatih/ditolak', [PelatihController::class, 'tolak'])->name('ditolak');
             Route::resource('pelatih/program', ProgramController::class);
+            Route::resource('pelatih/selesai', HasilLatihanController::class);
         });
 
         //Middleware User
@@ -65,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('user/dashboard', [UserController::class, 'index'])->name('user');
             Route::resource('user/edituser', EditUserController::class);
             Route::resource('user/permintaan', PermintaanController::class);
-            Route::resource('user/hasilpenilaian', HasilController::class);
+            Route::resource('user/hasil', HasilController::class);
             Route::resource('user/aspek', AspekController::class);
         });
 

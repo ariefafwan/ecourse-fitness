@@ -46,8 +46,15 @@
         </a>
     </li>
 
+    <li class="nav-item {{ ($page === "Program Berjalan Anda")  ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="{{ route ('hasil.index') }}">
+            <i class="fa fa-gamepad" aria-hidden="true"></i>
+            <span>Program Berjalan</span>
+        </a>
+    </li>
+    
     <li class="nav-item {{ ($page === "Hasil Penilaian")  ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="{{ route ('hasilpenilaian.index') }}">
+        <a class="nav-link collapsed" href="{{ route ('hasil.index') }}">
             <i class="fa fa-percent" aria-hidden="true"></i>
             <span>Hasil Latihan</span>
         </a>
