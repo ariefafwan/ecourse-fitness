@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Pelatih;
 
+use App\Models\Kind;
 use App\Models\Permintaan;
 use App\Models\Program;
 use App\Models\User;
@@ -20,15 +21,12 @@ class ProgramController extends Controller
     {
         $user = Auth::user();
         $page = "Berikan Program Anda";
-        // $permintaan = Permintaan::all()->where('pelatih_id', Auth::user()->id)->whereNotNull('kind_id');
-        $permintaan = Permintaan::doesntHave('program')->where('pelatih_id', Auth::user()->id)->where('status', 'Terima')->get();
-        // $userid = Permintaan::all()->where('pelatih_id', Auth::user()->id)->where('status', 'Terima')->get('user_id');
-        // dd($permintaan);
+        $permintaan = Permintaan::doesntHave('program')->where('pelatih_id', Auth::user()->id)->where('status', 'Terima')->orderBy('created_at', 'desc')->get();
+        $rumus = Kind::all();
         if ($permintaan->isEmpty()) {
-            return view('pelatih.program.belum', compact('user', 'page', 'permintaan'));
+            return view('pelatih.program.belum', compact('user', 'page', 'permintaan', 'rumus'));
         }
-        return view('pelatih.program.program', compact('user', 'page', 'permintaan'));
-        
+        return view('pelatih.program.program', compact('user', 'page', 'permintaan', 'rumus'));
     }
 
     /**
@@ -38,14 +36,12 @@ class ProgramController extends Controller
      */
     public function create()
     {
+        // Page Program Berjalan
         $user = Auth::user();
-        $page = "Berikan Program Anda";
-        $userid = Program::all()->where('pelatih_id', Auth::user()->id)->where('status', 'Terima')->get('user_id');
-        $program = Program::all()->where('user_id', $userid);
-        $menunggu = Program::all()->whereNull($program)->where('status', 'Terima');
-
-
-        return view('pelatih.program.tambah', compact('user', 'page', 'program', 'userid', 'menunggu'));
+        $page = "Program Berjalan";
+        $program = Program::OrderBy('tgl', 'asc')->where('status', 'Berjalan')->paginate(10);
+        
+        return view('pelatih.program.berjalan', compact('user', 'page' , 'program'));
     }
 
     /**
@@ -60,12 +56,15 @@ class ProgramController extends Controller
         $dtUpload->user_id = $request->user_id;
         $dtUpload->pelatih_id = $request->pelatih_id;
         $dtUpload->permintaan_id = $request->permintaan_id;
+        $dtUpload->status = $request->status;
+        $dtUpload->tgl = $request->tgl;
+        $dtUpload->runtutanke = $request->runtutanke;
+        $dtUpload->kind_id = $request->kind_id;
 
         $dtUpload->save();
 
-
-        return redirect()->route('rumus.index')
-            ->with('updatesuccess', 'Latihan Berhasil Ditambahkan');
+        return redirect()->route('program.create')
+            ->with('updatesuccess', 'Program Berhasil Ditambahkan');
     }
 
     /**
@@ -99,7 +98,14 @@ class ProgramController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dtUpload = Program::findOrFail($id);
+        
+        $dtUpload->status = $request->status;
+
+        $dtUpload->save();
+
+        return redirect()->route('terima.index')
+            ->with('updatesuccess', 'Permintaan Berhasil Ditambahkan');
     }
 
     /**

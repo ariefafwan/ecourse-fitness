@@ -17,7 +17,7 @@
                                 <th class="text-center">Nomor Handphone</th>
                                 <th class="text-center">Alamat</th>
                                 <th class="text-center">Fokus Latihan</th>
-                                <th class="text-center">Berikan Program</th>
+                                <th class="text-center">Berikan Rumus & Tanggal Latihan</th>
 
                             </tr>
                         </thead>
@@ -39,8 +39,38 @@
                                 </td>
                                 <td>
                                 <div class="btn-group">
-                                    {{-- <a href="" class="btn btn-primary btn-flat"><i class="fa fa-eye"></i></a> --}}
-                                    <a href="{{ route('program.create') }}" class="btn btn-primary btn-flat mr-2">
+                                    <form id="program-create-form" action="{{ route('program.store') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" class="form-control" id="pelatih_id" name="pelatih_id" value="{{ Auth::user()->id }}" required>
+                                        <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{ $row->user->id }}" required>
+                                        <input type="hidden" class="form-control" id="permintaan_id" name="permintaan_id" value="{{ $row->id }}" required>
+                                        <input type="hidden" class="form-control" id="status" name="status" value="Berjalan" required>
+                                        <input type="hidden" class="form-control" id="runtutanke" name="runtutanke" value="1" required>
+                                        <div class="col-md-12">
+                                            <label class="labels">Tanggal Latihan</label>
+                                            <input type="date" name="tgl" id="tgl" class="form-control" placeholder="Tanggal Latihan" required>
+                                        </div>
+                
+                                        <div class="col-md-12 mt-2">
+                                            <label for="user_id">Pilih Rumus Latihan</label>
+                                            <select class="form-select" aria-label="Default select example" name="kind_id" required>
+                                                <option selected>-- Pilih --</option>
+                                                @foreach ($rumus as $row)
+                                                    <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </form>
+                                    {{-- <a href="javascript:void(0)" class="btn btn-primary btn-flat"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('program-create-form-{{$row->id}}').submit();">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </a> --}}
+                                </div>
+                                <div class="btn-group">
+                                    <a href="javascript:void(0)" class="btn btn-primary btn-flat"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('program-create-form').submit();">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                     </a>
                                 </div>
@@ -57,6 +87,9 @@
                             </tr>
                         </tfoot> --}}
                     </table>
+                    {{-- <div class="d-flex justify-content-center">
+                        {{ $permintaan->links() }}
+                    </div> --}}
                 </div>
             </div>
         </div>

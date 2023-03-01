@@ -18,12 +18,13 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('pelatih_id')->unsigned();
-            $table->foreign('pelatih_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('pelatih_id')->references('id')->on('pelatihs')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('permintaan_id')->unsigned();
             $table->foreign('permintaan_id')->references('id')->on('permintaans')->onDelete('cascade')->onUpdate('cascade');
             $table->date('tgl');
-            $table->string('status')->nullable();
-            $table->bigInteger('kind_id')->unsigned()->nullable();
+            $table->string('status');
+            $table->string('runtutanke');
+            $table->bigInteger('kind_id')->unsigned();
             $table->foreign('kind_id')->references('id')->on('kinds')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

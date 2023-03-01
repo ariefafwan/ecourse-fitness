@@ -45,4 +45,5 @@ class PelatihController extends Controller
 
         return view('pelatih.permintaan.tolak', compact('user', 'page', 'permintaan'));
     }
+
 }

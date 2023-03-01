@@ -16,7 +16,8 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <link href="{{ asset('template/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -28,14 +29,14 @@
 
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
-$main-green: #79dd09 !default;
-$main-green-rgb-015: rgba(121, 221, 9, 0.1) !default;
-$main-yellow: #bdbb49 !default;
-$main-yellow-rgb-015: rgba(189, 187, 73, 0.1) !default;
-$main-red: #bd150b !default;
-$main-red-rgb-015: rgba(189, 21, 11, 0.1) !default;
-$main-blue: #0076bd !default;
-$main-blue-rgb-015: rgba(0, 118, 189, 0.1) !default;
+        $main-green: #79dd09 !default;
+        $main-green-rgb-015: rgba(121, 221, 9, 0.1) !default;
+        $main-yellow: #bdbb49 !default;
+        $main-yellow-rgb-015: rgba(189, 187, 73, 0.1) !default;
+        $main-red: #bd150b !default;
+        $main-red-rgb-015: rgba(189, 21, 11, 0.1) !default;
+        $main-blue: #0076bd !default;
+        $main-blue-rgb-015: rgba(0, 118, 189, 0.1) !default;
 
 /* This pen */
 body {
@@ -397,7 +398,6 @@ a, a:hover {
 
     </style>
 
-
 </head>
 
 <body id="page-top">
@@ -474,5 +474,4 @@ a, a:hover {
     <script src="{{ asset('template/js/demo/chart-pie-demo.js') }}"></script>
 
 </body>
-
 </html>

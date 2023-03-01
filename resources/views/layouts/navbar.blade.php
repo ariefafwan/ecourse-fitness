@@ -9,13 +9,13 @@
                     </ul>
                     @else
                     <ul>
-                        <a class="btn-book-a-table" href="{{ route('login') }}">Login</a>
+                        <a class="btn-book-a-table" href="{{ route('register') }}">Register</a>
                     </ul>
-                    @if (Route::has('register'))
+                    {{-- @if (Route::has('register'))
                     <ul>
                         <a class="btn-book-a-table" href="{{ route('register') }}">Register</a>
                     </ul>
-                        @endif
+                    @endif --}}
                     @endauth
             @endif
             

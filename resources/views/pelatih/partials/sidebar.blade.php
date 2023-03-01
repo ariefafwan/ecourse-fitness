@@ -51,15 +51,22 @@
     <!-- Nav Item - Utilities Collapse Menu -->
 
 
-    <li class="nav-item  {{ ($page == "Daftar Latihan") ? 'active' : '' }}">
+    <li class="nav-item  {{ ($page == "Berikan Program Anda") ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('program.index') }}">
+            <i class="fa fa-list-alt" aria-hidden="true"></i>
+            <span>Menuggu Program Latihan</span>
+        </a>
+    </li>
+    
+    <li class="nav-item  {{ ($page == "Program Berjalan") ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('program.create') }}">
             <i class="fa fa-gamepad" aria-hidden="true"></i>
             <span>Program Latihan Berjalan</span>
         </a>
     </li>
 
     <li class="nav-item  {{ ($page == "Hasil Latihan") ? 'active' : '' }}">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('selesai.index') }}">
             <i class="fa fa-id-card" aria-hidden="true"></i>
             <span>Hasil Program</span>
         </a>

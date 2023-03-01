@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Program;
+use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +17,16 @@ class HasilController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $page = "Program Berjalan Anda";
+        $program = Program::all()->where('user_id', Auth::user()->id)->where('status', 'Berjalan');
+        $pelatih = Program::all()->where('user_id', Auth::user()->id)->where('status', 'Berjalan')->get('pelatih_id');
+        $bapak = User::all()->where('id', $pelatih);
+        $nama = User::all()->where('id', $pelatih)->get('name');
+        $nmrhp = User::all()->where('id', $pelatih)->get('nmrhp');
+        $alamat = User::all()->where('id', $pelatih)->get('alamat');
+        
+        return view('user.program.program', compact('user', 'page', 'program', 'pelatih', 'nama', 'bapak', 'nmrhp', 'alamat'));
     }
 
     /**

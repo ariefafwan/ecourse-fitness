@@ -26,7 +26,7 @@
                <p data-aos="fade-up" data-aos-delay="50">KAMI MEMILIKI YANG ANDA BUTUHKAN
                   Tidak masalah jika anda baru bergabung atau sudah pernah bergabung sebelumnya, anda akan menemukan perjalanan fitness yang anda butuhkan</p>
                <div class="d-flex" data-aos="fade-up" data-aos-delay="50">
-                   <a href="{{ route('login') }}" type="button" class="btn btn-lg btn-danger"> Start Now</a>
+                   <a href="{{ route('login') }}" type="button" class="btn btn-lg btn-danger"> Start Now/Login</a>
                </div>
                <div class="d-flex mt-2" data-aos="fade-up" data-aos-delay="50">
                    {{-- <a href="{{ route('vr') }}" type="button" class="btn btn-lg btn-primary"><i class="bi bi-play-circle"></i> Virtual Tour</a> --}}
