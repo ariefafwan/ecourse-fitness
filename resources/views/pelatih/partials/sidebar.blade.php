@@ -23,6 +23,12 @@
             <span>Dashboard</span></a>
     </li>
 
+    <li class="nav-item {{ ($page === "Proflie Pelatih") ? 'active' : ''}}">
+        <a class="nav-link" href="{{ route('admin') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Proflie Pelatih</span></a>
+    </li>
+
     <!-- Nav Item - Pages Collapse Menu -->
     {{-- <li class="nav-item {{ ($page === "Permohonan")  ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('permohonan.index') }}">

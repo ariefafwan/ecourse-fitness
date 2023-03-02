@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Pelatih;
 
-use App\Models\Kind;
-use App\Models\Latihan;
 use App\Models\Pelatih;
+use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RumusController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,13 +18,12 @@ class RumusController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $page = "Daftar Rumus Anda";
-        $rumus = Kind::all();
+        $page = "Profile Coach Anda";
         $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
         if ($pelatih->isEmpty()) {
-            return view('pelatih.program.belum', compact('user', 'page', 'permintaan', 'rumus'));
+            return view('pelatih.profile.belum', compact('user', 'page', 'pelatih'));
         }
-        return view('pelatih.rumus.daftar', compact('user', 'page', 'rumus', 'pelatih'));
+        return view('pelatih.profile.profile', compact('user', 'page', 'pelatih'));
     }
 
     /**
@@ -35,10 +33,7 @@ class RumusController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $page = "Tambah Rumus Anda";
-        $rumus = Kind::all();
-        return view('pelatih.rumus.create', compact('user', 'page', 'rumus'));
+        //
     }
 
     /**
@@ -49,16 +44,7 @@ class RumusController extends Controller
      */
     public function store(Request $request)
     {
-        $dtUpload = new Kind();
-        $dtUpload->name = $request->name;
-        $dtUpload->pelatih_id = $request->pelatih_id;
-        $dtUpload->latihan1_id = $request->latihan1_id;
-
-        $dtUpload->save();
-
-
-        return redirect()->route('rumus.index')
-            ->with('updatesuccess', 'Latihan Berhasil Ditambahkan');
+        //
     }
 
     /**
@@ -80,10 +66,7 @@ class RumusController extends Controller
      */
     public function edit($id)
     {
-        $user = Auth::user();
-        $page = "Edit Rumus";
-        $rumus = Kind::findOrFail($id);
-        return view('pelatih.rumus.edit', compact('user', 'page', 'latihan'));
+        //
     }
 
     /**
@@ -95,16 +78,7 @@ class RumusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dtUpload = Kind::find($id);
-        $dtUpload->name = $request->name;
-        $dtUpload->pelatih_id = $request->pelatih_id;
-        $dtUpload->latihan1_id = $request->latihan1_id;
-
-        $dtUpload->save();
-
-
-        return redirect()->route('rumus.index')
-            ->with('updatesuccess', 'Rumus Berhasil Ditambahkan');
+        //
     }
 
     /**
@@ -115,10 +89,6 @@ class RumusController extends Controller
      */
     public function destroy($id)
     {
-        $latihan = Kind::findOrFail($id);
-        $latihan->delete();
-
-        return redirect()->route('Rumus.index')
-            ->with('updatesuccess', 'Berhasil Dihapus');
+        //
     }
 }

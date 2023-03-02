@@ -52,10 +52,10 @@ class User extends Authenticatable
         return $this->hasMany(Aspek::class);
     }
 
-    // public function program()
-    // {
-    //     return $this->hasMany(Program::class);
-    // }
+    public function pelatih()
+    {
+        return $this->hasMany(Pelatih::class);
+    }
 
     public function kind()
     {
