@@ -9,11 +9,6 @@ class Kind extends Model
 {
     use HasFactory;
 
-    public function latihan()
-    {
-        return $this->belongsTo(Latihan::class);
-    }
-
     public function program()
     {
         return $this->hasMany(Program::class);
