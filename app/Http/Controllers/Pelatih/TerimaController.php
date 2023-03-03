@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pelatih;
 
 use App\Models\Kind;
+use App\Models\Pelatih;
 use App\Models\Permintaan;
 use App\Models\Program;
 use Illuminate\Routing\Controller;
@@ -20,12 +21,14 @@ class TerimaController extends Controller
     {
         $user = Auth::user();
         $page = "Daftar Permintaan Program Latihan Terhadap Anda";
-        $permintaan = Permintaan::all()->where('pelatih_id', Auth::user()->id)->where('status', 'Pengajuan');
+        $permintaan = Permintaan::all()->where('id_user_pelatih', Auth::user()->id)->where('status', 'Pengajuan');
+        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
         if ($permintaan->isEmpty()) {
-            return view('pelatih.permintaan.belum', compact('user', 'page', 'permintaan'));
+            return view('pelatih.permintaan.belum', compact('user', 'page', 'permintaan', 'pelatih'));
         }
 
-        return view('pelatih.permintaan.permintaan', compact('user', 'page', 'permintaan'));
+        return view('pelatih.permintaan.permintaan', compact('user', 'page', 'permintaan', 'pelatih'));
+
     }
 
     /**
@@ -59,8 +62,9 @@ class TerimaController extends Controller
     {
         $user = Auth::user();
         $page = "Detail";
-        $permintaan = Program::findOrFail($id);
-        return view('pelatih.permintaan.show', compact('user', 'page', 'permintaan'));
+        $permintaan = Permintaan::findOrFail($id);
+        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
+        return view('pelatih.permintaan.show', compact('user', 'page', 'permintaan', 'pelatih'));
     }
 
     /**
@@ -75,7 +79,8 @@ class TerimaController extends Controller
         $page = "Tambah Program";
         $rumus = Kind::all();
         $program = Program::findOrFail($id);
-        return view('pelatih.program.tambah', compact('user', 'page', 'program', 'rumus'));
+        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
+        return view('pelatih.program.tambah', compact('user', 'page', 'program', 'rumus', 'pelatih'));
     }
 
     /**
@@ -87,14 +92,12 @@ class TerimaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dtUpload = Permintaan::findOrFail($id);
-        
+        $dtUpload = Permintaan::findOrFail($id);        
         $dtUpload->status = $request->status;
         // $dtUpload->tgl = $request->tgl;
         // $dtUpload->kind_id = $request->kind_id;
 
         $dtUpload->save();
-
 
         return redirect()->route('terima.index')
             ->with('updatesuccess', 'Permintaan Berhasil Ditambahkan');

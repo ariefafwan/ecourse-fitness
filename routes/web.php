@@ -8,6 +8,7 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Pelatih\HasilLatihanController;
 use App\Http\Controllers\Pelatih\PelatihController;
+use App\Http\Controllers\Pelatih\ProfileController;
 use App\Http\Controllers\Pelatih\ProgramController;
 use App\Http\Controllers\Pelatih\RumusController;
 use App\Http\Controllers\Pelatih\TerimaController;
@@ -60,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('pelatih/ditolak', [PelatihController::class, 'tolak'])->name('ditolak');
             Route::resource('pelatih/program', ProgramController::class);
             Route::resource('pelatih/selesai', HasilLatihanController::class);
+            Route::resource('pelatih/profile', ProfileController::class);
         });
 
         //Middleware User

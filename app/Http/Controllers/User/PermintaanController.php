@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Aspek;
+use App\Models\Pelatih;
 use App\Models\Permintaan;
 use App\Models\Program;
 use App\Models\User;
@@ -23,7 +24,7 @@ class PermintaanController extends Controller
     {
         $user = Auth::user();
         $page = "Order Pelatih Anda";
-        $pelatih = User::all()->where('role_id', '2');
+        $pelatih = Pelatih::all();
         
         $permintaan = Permintaan::all()->where('user_id', Auth::user()->id)->where('status', 'Pengajuan');
         
@@ -61,6 +62,7 @@ class PermintaanController extends Controller
         $dtUpload->user_id = $request->user_id;
         $dtUpload->pelatih_id = $request->pelatih_id;
         $dtUpload->status = $request->status;
+        $dtUpload->id_user_pelatih = $request->id_user_pelatih;
 
         $dtUpload->save();
 

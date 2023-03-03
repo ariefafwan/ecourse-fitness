@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pelatih;
 
 use App\Models\Kind;
 use App\Models\Latihan;
+use App\Models\Pelatih;
 use App\Models\Program;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
@@ -20,10 +21,11 @@ class HasilLatihanController extends Controller
     {
         $user = Auth::user();
         $page = "Hasil Program";
+        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
         $program = Program::latest()->orderBy('created_at', 'desc')->where('status', 'Selesai')->paginate(10);
         $rumus = Kind::all();
 
-        return view('pelatih.program.selesai', compact('user', 'page', 'program', 'rumus'));
+        return view('pelatih.program.selesai', compact('user', 'page', 'program', 'rumus', 'pelatih'));
     }
 
     /**

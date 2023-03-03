@@ -22,9 +22,6 @@ class RumusController extends Controller
         $page = "Daftar Rumus Anda";
         $rumus = Kind::all();
         $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        if ($pelatih->isEmpty()) {
-            return view('pelatih.program.belum', compact('user', 'page', 'permintaan', 'rumus'));
-        }
         return view('pelatih.rumus.daftar', compact('user', 'page', 'rumus', 'pelatih'));
     }
 
@@ -38,7 +35,8 @@ class RumusController extends Controller
         $user = Auth::user();
         $page = "Tambah Rumus Anda";
         $rumus = Kind::all();
-        return view('pelatih.rumus.create', compact('user', 'page', 'rumus'));
+        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
+        return view('pelatih.rumus.create', compact('user', 'page', 'rumus', 'pelatih'));
     }
 
     /**
@@ -52,7 +50,26 @@ class RumusController extends Controller
         $dtUpload = new Kind();
         $dtUpload->name = $request->name;
         $dtUpload->pelatih_id = $request->pelatih_id;
-        $dtUpload->latihan1_id = $request->latihan1_id;
+        $dtUpload->latihan1 = $request->latihan1;
+        $dtUpload->latihan2 = $request->latihan2;
+        $dtUpload->latihan3 = $request->latihan3;
+        $dtUpload->latihan4 = $request->latihan4;
+        $dtUpload->latihan5 = $request->latihan5;
+        $dtUpload->latihan6 = $request->latihan6;
+        $dtUpload->latihan7 = $request->latihan7;
+        $dtUpload->latihan8 = $request->latihan8;
+        $dtUpload->latihan9 = $request->latihan9;
+        $dtUpload->latihan10 = $request->latihan10;
+        $dtUpload->latihan11 = $request->latihan11;
+        $dtUpload->latihan12 = $request->latihan12;
+        $dtUpload->latihan13 = $request->latihan13;
+        $dtUpload->latihan14 = $request->latihan14;
+        $dtUpload->latihan15 = $request->latihan15;
+        $dtUpload->latihan16 = $request->latihan16;
+        $dtUpload->latihan17 = $request->latihan17;
+        $dtUpload->latihan18 = $request->latihan18;
+        $dtUpload->latihan19 = $request->latihan19;
+        $dtUpload->latihan20 = $request->latihan20;
 
         $dtUpload->save();
 
@@ -83,7 +100,8 @@ class RumusController extends Controller
         $user = Auth::user();
         $page = "Edit Rumus";
         $rumus = Kind::findOrFail($id);
-        return view('pelatih.rumus.edit', compact('user', 'page', 'latihan'));
+        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
+        return view('pelatih.rumus.edit', compact('user', 'page', 'latihan', 'pelatih'));
     }
 
     /**

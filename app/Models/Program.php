@@ -28,5 +28,10 @@ class Program extends Model
     {
         return $this->belongsTo(Permintaan::class);
     }
+
+    public function pelatih()
+    {
+        return $this->belongsTo(Pelatih::class);
+    }
     
 }

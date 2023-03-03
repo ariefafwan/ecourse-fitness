@@ -32,7 +32,6 @@
                                 <td align="center">{{ $row->user->alamat }}</td>
                                 <td align="center">{{ $row->aspek->fokus }}
                                     <div class="btn-group">
-                                        {{-- <a href="" class="btn btn-primary btn-flat"><i class="fa fa-eye"></i></a> --}}
                                         <a href="{{ route('terima.show',$row->id) }}" class="btn btn-warning btn-flat mr-2">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>

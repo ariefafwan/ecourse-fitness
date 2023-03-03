@@ -18,4 +18,9 @@ class Kind extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function pelatih()
+    {
+        return $this->belongsTo(Pelatih::class);
+    }
 }

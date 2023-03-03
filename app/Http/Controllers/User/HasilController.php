@@ -20,13 +20,8 @@ class HasilController extends Controller
         $user = Auth::user();
         $page = "Program Berjalan Anda";
         $program = Program::all()->where('user_id', Auth::user()->id)->where('status', 'Berjalan');
-        $pelatih = Program::all()->where('user_id', Auth::user()->id)->where('status', 'Berjalan')->get('pelatih_id');
-        $bapak = User::all()->where('id', $pelatih);
-        $nama = User::all()->where('id', $pelatih)->get('name');
-        $nmrhp = User::all()->where('id', $pelatih)->get('nmrhp');
-        $alamat = User::all()->where('id', $pelatih)->get('alamat');
         
-        return view('user.program.program', compact('user', 'page', 'program', 'pelatih', 'nama', 'bapak', 'nmrhp', 'alamat'));
+        return view('user.program.program', compact('user', 'page', 'program'));
     }
 
     /**
@@ -36,7 +31,12 @@ class HasilController extends Controller
      */
     public function create()
     {
-        //
+        //Page Hasil Program
+        $user = Auth::user();
+        $page = "Program Latihan Selesai";
+        $program = Program::OrderBy('created_at', 'desc')->where('status', 'Selesai')->where('user_id', Auth::user()->id)->paginate(10);
+        
+        return view('user.program.selesai', compact('user', 'page', 'program'));
     }
 
     /**
@@ -58,7 +58,11 @@ class HasilController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $page = "Program Berjalan Anda";
+        $program = Program::findOrFail($id);
+
+        return view('user.program.show', compact('user', 'page', 'program'));
     }
 
     /**
