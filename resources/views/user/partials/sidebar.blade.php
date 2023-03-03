@@ -53,8 +53,8 @@
         </a>
     </li>
     
-    <li class="nav-item {{ ($page === "Hasil Penilaian")  ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="{{ route ('hasil.index') }}">
+    <li class="nav-item {{ ($page === "Program Latihan Selesai")  ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="{{ route ('hasil.create') }}">
             <i class="fa fa-percent" aria-hidden="true"></i>
             <span>Hasil Latihan</span>
         </a>

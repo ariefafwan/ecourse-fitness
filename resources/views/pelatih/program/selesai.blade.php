@@ -35,9 +35,12 @@
                                 <td align="center">{{ $row->runtutanke }}</td>
                                 <td>
                                 <div class="btn-group">
-                                    <form id="program-create-form-{{$row->id}}" action="{{ route('program.store') }}" method="POST" enctype="multipart/form-data">
+                                    <form id="program-create-form" action="{{ route('program.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
-                                        <input type="hidden" class="form-control" id="pelatih_id" name="pelatih_id" value="{{ Auth::user()->id }}" required>
+                                        @foreach ($pelatih as $p)
+                                        <input type="hidden" class="form-control" id="pelatih_id" name="pelatih_id" value="{{ $p->id }}" required>
+                                        @endforeach
+                                        <input type="hidden" class="form-control" id="id_user_pelatih" name="id_user_pelatih" value="{{ Auth::user()->id }}" required>
                                         <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{ $row->user->id }}" required>
                                         <input type="hidden" class="form-control" id="permintaan_id" name="permintaan_id" value="{{ $row->permintaan->id }}" required>
                                         <input type="hidden" class="form-control" id="status" name="status" value="Berjalan" required>
@@ -63,7 +66,7 @@
                                 <div class="btn-group mt-1">
                                     <a href="javascript:void(0)" class="btn btn-primary btn-flat"
                                         onclick="event.preventDefault();
-                                        document.getElementById('program-create-form-{{$row->id}}').submit();">
+                                        document.getElementById('program-create-form').submit();">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                     </a>
                                 </div>

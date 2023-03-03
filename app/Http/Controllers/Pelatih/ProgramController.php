@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pelatih;
 
 use App\Models\Kind;
+use App\Models\Pelatih;
 use App\Models\Permintaan;
 use App\Models\Program;
 use App\Models\User;
@@ -21,12 +22,13 @@ class ProgramController extends Controller
     {
         $user = Auth::user();
         $page = "Berikan Program Anda";
-        $permintaan = Permintaan::doesntHave('program')->where('pelatih_id', Auth::user()->id)->where('status', 'Terima')->orderBy('created_at', 'desc')->get();
+        $permintaan = Permintaan::doesntHave('program')->where('id_user_pelatih', Auth::user()->id)->where('status', 'Terima')->orderBy('created_at', 'desc')->get();
         $rumus = Kind::all();
+        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
         if ($permintaan->isEmpty()) {
-            return view('pelatih.program.belum', compact('user', 'page', 'permintaan', 'rumus'));
+            return view('pelatih.program.belum', compact('user', 'page', 'permintaan', 'rumus', 'pelatih'));
         }
-        return view('pelatih.program.program', compact('user', 'page', 'permintaan', 'rumus'));
+        return view('pelatih.program.program', compact('user', 'page', 'permintaan', 'rumus', 'pelatih'));
     }
 
     /**
@@ -39,9 +41,10 @@ class ProgramController extends Controller
         // Page Program Berjalan
         $user = Auth::user();
         $page = "Program Berjalan";
-        $program = Program::OrderBy('tgl', 'asc')->where('status', 'Berjalan')->paginate(10);
+        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
+        $program = Program::OrderBy('tgl', 'asc')->where('status', 'Berjalan')->where('id_user_pelatih', Auth::user()->id)->paginate(10);
         
-        return view('pelatih.program.berjalan', compact('user', 'page' , 'program'));
+        return view('pelatih.program.berjalan', compact('user', 'page' , 'program', 'pelatih'));
     }
 
     /**
@@ -60,6 +63,7 @@ class ProgramController extends Controller
         $dtUpload->tgl = $request->tgl;
         $dtUpload->runtutanke = $request->runtutanke;
         $dtUpload->kind_id = $request->kind_id;
+        $dtUpload->id_user_pelatih = $request->id_user_pelatih;
 
         $dtUpload->save();
 

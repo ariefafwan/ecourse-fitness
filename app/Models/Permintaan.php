@@ -23,4 +23,9 @@ class Permintaan extends Model
     {
         return $this->hasMany(Program::class);
     }
+
+    public function pelatih()
+    {
+        return $this->belongsTo(Pelatih::class);
+    }
 }

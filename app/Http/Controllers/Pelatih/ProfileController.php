@@ -21,7 +21,7 @@ class ProfileController extends Controller
         $page = "Profile Coach Anda";
         $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
         if ($pelatih->isEmpty()) {
-            return view('pelatih.profile.belum', compact('user', 'page', 'pelatih'));
+            return view('pelatih.profile.tambah', compact('user', 'page', 'pelatih'));
         }
         return view('pelatih.profile.profile', compact('user', 'page', 'pelatih'));
     }
@@ -44,7 +44,22 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nm = $request->profile_img;
+        $namaFile = $nm->getClientOriginalName();
+        
+        $dtUpload = new Pelatih();
+        $dtUpload->user_id = $request->user_id;
+        $dtUpload->jeniskl = $request->jeniskl;
+        $dtUpload->nmrhp = $request->nmrhp;
+        $dtUpload->name = $request->name;
+        $dtUpload->alamat = $request->alamat;
+        $dtUpload->profile_img = $namaFile;
+
+        $nm->move(public_path() . '/img/profil', $namaFile);
+        $dtUpload->save();
+
+        return redirect()->route('profile.index')
+            ->with('updatesuccess', 'Profile Ditambahkan');
     }
 
     /**
@@ -66,7 +81,12 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $page = "Profile Coach Anda";
+        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
+        $p = Pelatih::findOrFail($id);
+        
+        return view('pelatih.profile.edit', compact('user', 'page', 'pelatih', 'p'));
     }
 
     /**
@@ -78,7 +98,22 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $nm = $request->profile_img;
+        $namaFile = $nm->getClientOriginalName();
+        
+        $dtUpload = Pelatih::findOrFail($id);
+        $dtUpload->user_id = $request->user_id;
+        $dtUpload->jeniskl = $request->jeniskl;
+        $dtUpload->name = $request->name;
+        $dtUpload->nmrhp = $request->nmrhp;
+        $dtUpload->alamat = $request->alamat;
+        $dtUpload->profile_img = $namaFile;
+
+        $nm->move(public_path() . '/img/profil', $namaFile);
+        $dtUpload->save();
+
+        return redirect()->route('profile.index')
+            ->with('updatesuccess', 'Profile Ditambahkan');
     }
 
     /**

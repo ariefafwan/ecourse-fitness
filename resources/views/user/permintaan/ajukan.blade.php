@@ -47,15 +47,12 @@
                             {{-- <a href="{{ route('permintaan.create') }}"><i class="fa fa-bookmark" aria-hidden="true"></i> Order Sekarang</a> --}}
                             <form id="user-update-form-{{$row->id}}" action="{{ route('permintaan.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                {{-- <div class="postcard__preview-txt mb-2">
-                                <label class="labels">Tentukan Tanggal Latihan Anda</label>
-                                <input type="date" name="tgl" id="tgl" class="form-control" placeholder="Tanggal Latihan" required>
-                                </div> --}}
                                 <input type="hidden" class="form-control" id="pelatih_id" name="pelatih_id" value="{{ $row->id }}" required>
+                                <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{ Auth::user()->id }}" required>
                                 @foreach ($aspek as $as)
                                 <input type="hidden" class="form-control" id="aspek_id" name="aspek_id" value="{{ $as->id }}" required>
                                 @endforeach
-                                <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{ Auth::user()->id }}" required>
+                                <input type="hidden" class="form-control" id="id_user_pelatih" name="id_user_pelatih" value="{{ $row->user_id }}" required>
                                 <input type="hidden" class="form-control" id="status" name="status" value="Pengajuan" required>
                             </form>
                             <a href="javascript:void(0)"
