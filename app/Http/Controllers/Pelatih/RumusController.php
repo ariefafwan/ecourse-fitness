@@ -136,7 +136,7 @@ class RumusController extends Controller
         $latihan = Kind::findOrFail($id);
         $latihan->delete();
 
-        return redirect()->route('Rumus.index')
+        return redirect()->route('rumus.index')
             ->with('updatesuccess', 'Berhasil Dihapus');
     }
 }
