@@ -9,6 +9,7 @@ use App\Models\Program;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TerimaController extends Controller
 {
@@ -28,7 +29,6 @@ class TerimaController extends Controller
         }
 
         return view('pelatih.permintaan.permintaan', compact('user', 'page', 'permintaan', 'pelatih'));
-
     }
 
     /**
@@ -38,7 +38,6 @@ class TerimaController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -92,15 +91,15 @@ class TerimaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dtUpload = Permintaan::findOrFail($id);        
+        $dtUpload = Permintaan::findOrFail($id);
         $dtUpload->status = $request->status;
         // $dtUpload->tgl = $request->tgl;
         // $dtUpload->kind_id = $request->kind_id;
 
         $dtUpload->save();
 
-        return redirect()->route('terima.index')
-            ->with('updatesuccess', 'Permintaan Berhasil Ditambahkan');
+        Alert::success('Informasi Pesan!', 'Permintaan Berhasil diupdate');
+        return redirect()->route('terima.index');
     }
 
     /**

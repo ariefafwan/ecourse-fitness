@@ -43,35 +43,36 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        
-         //Middleware Admin
-         Route::middleware(['admin'])->group(function () {
-            Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin');
-            Route::resource('admin/daftarpelatih', DaftarPelatihController::class);
-            Route::resource('admin/daftaruser', DaftarUserController::class);
-            Route::resource('admin/latihan', LatihanController::class);
-        });
 
-        //Middleware Pelatih
-        Route::middleware(['pelatih'])->group(function () {
-            Route::get('pelatih/dashboard', [PelatihController::class, 'index'])->name('pelatih');
-            Route::resource('pelatih/rumus', RumusController::class);
-            Route::resource('pelatih/terima', TerimaController::class);
-            Route::get('pelatih/diterima', [PelatihController::class, 'terima'])->name('diterima');
-            Route::get('pelatih/ditolak', [PelatihController::class, 'tolak'])->name('ditolak');
-            Route::resource('pelatih/program', ProgramController::class);
-            Route::resource('pelatih/selesai', HasilLatihanController::class);
-            Route::resource('pelatih/profile', ProfileController::class);
-        });
+    //Middleware Admin
+    Route::middleware(['admin'])->group(function () {
+        Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin');
+        Route::resource('admin/daftarpelatih', DaftarPelatihController::class);
+        Route::resource('admin/daftaruser', DaftarUserController::class);
+        Route::resource('admin/latihan', LatihanController::class);
+    });
 
-        //Middleware User
-        Route::middleware(['user'])->group(function () {
-            Route::get('user/dashboard', [UserController::class, 'index'])->name('user');
-            Route::resource('user/edituser', EditUserController::class);
-            Route::resource('user/permintaan', PermintaanController::class);
-            Route::resource('user/hasil', HasilController::class);
-            Route::resource('user/aspek', AspekController::class);
-        });
+    //Middleware Pelatih
+    Route::middleware(['pelatih'])->group(function () {
+        Route::get('pelatih/dashboard', [PelatihController::class, 'index'])->name('pelatih');
+        Route::resource('pelatih/rumus', RumusController::class);
+        Route::resource('pelatih/terima', TerimaController::class);
+        Route::get('pelatih/diterima', [PelatihController::class, 'terima'])->name('diterima');
+        Route::get('pelatih/ditolak', [PelatihController::class, 'tolak'])->name('ditolak');
+        Route::resource('pelatih/program', ProgramController::class);
+        Route::resource('pelatih/selesai', HasilLatihanController::class);
+        Route::resource('pelatih/profile', ProfileController::class);
+        Route::get('tambahprogram/{id}', [PelatihController::class, 'tambahprogram'])->name('tambahprogram');
+    });
+
+    //Middleware User
+    Route::middleware(['user'])->group(function () {
+        Route::get('user/dashboard', [UserController::class, 'index'])->name('user');
+        Route::resource('user/edituser', EditUserController::class);
+        Route::resource('user/permintaan', PermintaanController::class);
+        Route::resource('user/hasil', HasilController::class);
+        Route::resource('user/aspek', AspekController::class);
+    });
 
     Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
 });

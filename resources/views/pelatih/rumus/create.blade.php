@@ -72,14 +72,18 @@
                         </div>
                         <div class="col-md-12 mt-2">
                             <label for="">Latihan 9</label>
-                            <input type="text" name="latihan10" id="latihan1" placeholder="Contoh : Push Up 20X atau Plank 2 Menit....." class="form-control" >
+                            <input type="text" name="latihan9" id="latihan1" placeholder="Contoh : Push Up 20X atau Plank 2 Menit....." class="form-control" >
                         </div>
                         <div class="col-md-12 mt-2">
                             <label for="">Latihan 10</label>
-                            <input type="text" name="latihan11" id="latihan1" placeholder="Contoh : Push Up 20X atau Plank 2 Menit....." class="form-control" >
+                            <input type="text" name="latihan10" id="latihan1" placeholder="Contoh : Push Up 20X atau Plank 2 Menit....." class="form-control" >
                         </div>
                         <div class="col-md-12 mt-2">
                             <label for="">Latihan 11</label>
+                            <input type="text" name="latihan11" id="latihan1" placeholder="Contoh : Push Up 20X atau Plank 2 Menit....." class="form-control" >
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <label for="">Latihan 12</label>
                             <input type="text" name="latihan12" id="latihan1" placeholder="Contoh : Push Up 20X atau Plank 2 Menit....." class="form-control" >
                         </div>
                         <div class="col-md-12 mt-2">

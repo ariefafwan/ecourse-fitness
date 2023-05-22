@@ -3,7 +3,7 @@
 @section('pbody')
 
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Belum Bisa Mengisi Profile Pelatih</h1>
+    <h1 class="mb-2 text-gray-800">Belum Bisa Mengisi Profile Pelatih</h1>
     <div class="row">
     <div class="container text-dark">
         

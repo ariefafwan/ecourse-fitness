@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Pelatih;
 
 use App\Models\Kind;
-use App\Models\Latihan;
 use App\Models\Pelatih;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RumusController extends Controller
 {
@@ -73,9 +73,8 @@ class RumusController extends Controller
 
         $dtUpload->save();
 
-
-        return redirect()->route('rumus.index')
-            ->with('updatesuccess', 'Latihan Berhasil Ditambahkan');
+        Alert::success('Informasi Pesan!', 'Rumus Anda Berhasil ditambahkan');
+        return redirect()->route('rumus.index');
     }
 
     /**
@@ -101,7 +100,7 @@ class RumusController extends Controller
         $page = "Edit Rumus";
         $rumus = Kind::findOrFail($id);
         $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        return view('pelatih.rumus.edit', compact('user', 'page', 'latihan', 'pelatih'));
+        return view('pelatih.rumus.edit', compact('user', 'page', 'pelatih', 'rumus'));
     }
 
     /**
@@ -116,13 +115,31 @@ class RumusController extends Controller
         $dtUpload = Kind::find($id);
         $dtUpload->name = $request->name;
         $dtUpload->pelatih_id = $request->pelatih_id;
-        $dtUpload->latihan1_id = $request->latihan1_id;
+        $dtUpload->latihan1 = $request->latihan1;
+        $dtUpload->latihan2 = $request->latihan2;
+        $dtUpload->latihan3 = $request->latihan3;
+        $dtUpload->latihan4 = $request->latihan4;
+        $dtUpload->latihan5 = $request->latihan5;
+        $dtUpload->latihan6 = $request->latihan6;
+        $dtUpload->latihan7 = $request->latihan7;
+        $dtUpload->latihan8 = $request->latihan8;
+        $dtUpload->latihan9 = $request->latihan9;
+        $dtUpload->latihan10 = $request->latihan10;
+        $dtUpload->latihan11 = $request->latihan11;
+        $dtUpload->latihan12 = $request->latihan12;
+        $dtUpload->latihan13 = $request->latihan13;
+        $dtUpload->latihan14 = $request->latihan14;
+        $dtUpload->latihan15 = $request->latihan15;
+        $dtUpload->latihan16 = $request->latihan16;
+        $dtUpload->latihan17 = $request->latihan17;
+        $dtUpload->latihan18 = $request->latihan18;
+        $dtUpload->latihan19 = $request->latihan19;
+        $dtUpload->latihan20 = $request->latihan20;
 
         $dtUpload->save();
 
-
-        return redirect()->route('rumus.index')
-            ->with('updatesuccess', 'Rumus Berhasil Ditambahkan');
+        Alert::success('Informasi Pesan!', 'Rumus Anda Berhasil diedit');
+        return redirect()->route('rumus.index');
     }
 
     /**
@@ -136,7 +153,6 @@ class RumusController extends Controller
         $latihan = Kind::findOrFail($id);
         $latihan->delete();
 
-        return redirect()->route('rumus.index')
-            ->with('updatesuccess', 'Berhasil Dihapus');
+        return redirect()->route('rumus.index');
     }
 }

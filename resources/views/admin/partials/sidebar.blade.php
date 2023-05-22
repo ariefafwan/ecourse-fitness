@@ -3,10 +3,10 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
-        <div class="sidebar-brand-icon">
+        {{-- <div class="sidebar-brand-icon">
             <img src="/img/gym.jpg" style="width: 60%;margin-left:5px"/>
-        </div>
-        <div class="sidebar-brand-text mx-3" style="color:#ff9a01;font-size:12pt">GYM</div>
+        </div> --}}
+        <div class="sidebar-brand-text mx-3" style="color:#0e0000;font-size:20pt">FITNESS</div>
     </a>
 
     <!-- Divider -->
