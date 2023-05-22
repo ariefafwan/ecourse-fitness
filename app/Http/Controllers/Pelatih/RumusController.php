@@ -138,7 +138,7 @@ class RumusController extends Controller
 
         $dtUpload->save();
 
-        Alert::success('Informasi Pesan!', 'Rumus Anda Berhasil diedit');
+        Alert::success('Informasi Pesan!', 'Rumus Anda Berhasil diupdate');
         return redirect()->route('rumus.index');
     }
 

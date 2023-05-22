@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Kind;
-use App\Models\Role;
-use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 

@@ -107,7 +107,7 @@ class ProgramController extends Controller
         $dtUpload->status = $request->status;
 
         $dtUpload->save();
-        Alert::success('Informasi Pesan!', 'Program Anda Berhasil ditambahkan');
+        Alert::success('Informasi Pesan!', 'Program Berhasil diupdate');
         return redirect()->route('terima.index');
     }
 

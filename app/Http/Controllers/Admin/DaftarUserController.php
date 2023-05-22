@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DaftarUserController extends Controller
 {
@@ -20,7 +21,7 @@ class DaftarUserController extends Controller
         $user = Auth::user();
         $page = "Daftar Pelatih";
         $role = Role::all();
-        $total = User::all()-> where('role_id', '3');
+        $total = User::all()->where('role_id', '3');
         if ($total->isEmpty()) {
             return view('admin.duser.belum', compact('user', 'total', 'page', 'role'));
         }
@@ -88,6 +89,7 @@ class DaftarUserController extends Controller
         $dtUpload = User::find($id);
         $dtUpload->role_id = $request->role_id;
 
+        Alert::success('Informasi Pesan!', 'Berhasil diupdate');
         $dtUpload->save();
     }
 

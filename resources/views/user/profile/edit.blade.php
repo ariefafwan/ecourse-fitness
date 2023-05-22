@@ -11,7 +11,7 @@
                 @method('PUT')
             <div class="row">
                 <div class="col-md-3 border-right">
-                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="{{ asset ('public/profil/' . $user->profile_img) }}"><span class="font-weight-bold">{{ $user->name }}</span><span class="text-black-50">{{ $user->email }}</span><span> </span></div>
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="200px" height="200px" src="{{ asset ('public/profil/' . $user->profile_img) }}"><span class="font-weight-bold">{{ $user->name }}</span><span class="text-black-50">{{ $user->email }}</span><span> </span></div>
                     <div class="col-md-12">
                         <input type="hidden" name="oldImage" value="{{ $user->profile_img }}">
                         <input type="file" id="profile_img" name="profile_img" class="form-control align-item center" value="{{ $user->profile_img }}" placeholder="first name" required>

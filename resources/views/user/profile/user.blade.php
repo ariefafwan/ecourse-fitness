@@ -12,7 +12,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class="text-right">Your Profile</h4>
                         </div>
-                        <img class="rounded-circle" width="150px" src="{{ asset('public/profil/' . $user->profile_img) }}">
+                        <img class="rounded-circle" width="200px" height="200px" src="{{ asset('public/profil/' . $user->profile_img) }}">
                         <span class="font-weight-bold mt-1">{{ $user->name }}</span>
                         <span class="text-black-50">{{ $user->email }}</span>
                         <span class="font-weight-bold mt-1">{{ $user->jeniskl }}</span>

@@ -29,7 +29,6 @@
                    <a href="{{ route('login') }}" type="button" class="btn btn-lg btn-danger"> Start Now/Login</a>
                </div>
                <div class="d-flex mt-2" data-aos="fade-up" data-aos-delay="50">
-                   {{-- <a href="{{ route('vr') }}" type="button" class="btn btn-lg btn-primary"><i class="bi bi-play-circle"></i> Virtual Tour</a> --}}
                </div>
            </div>
            <div class="col-lg-7 order-1 order-lg-2 text-center text-lg-start">
@@ -37,7 +36,7 @@
                    data-aos-delay="300">
                    <div class="carousel-inner">
                        <div class="carousel-item active">
-                           <img src="/img/fit.jpg" class="d-block w-100 rounded" alt="...">
+                           <img src="{{ asset('img/fit.jpeg') }}" class="d-block w-100 rounded" width="500px" height="500ox" alt="...">
                        </div>
                    </div>
                </div>
