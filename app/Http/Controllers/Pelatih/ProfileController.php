@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Pelatih;
 
 use App\Models\Pelatih;
-use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller
 {
@@ -44,22 +45,25 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $nm = $request->profile_img;
-        $namaFile = $nm->getClientOriginalName();
-        
         $dtUpload = new Pelatih();
         $dtUpload->user_id = $request->user_id;
         $dtUpload->jeniskl = $request->jeniskl;
         $dtUpload->nmrhp = $request->nmrhp;
         $dtUpload->name = $request->name;
         $dtUpload->alamat = $request->alamat;
-        $dtUpload->profile_img = $namaFile;
+        $file = $request->file('profile_img');
+        if ($request->validate([
+            'profile_img' => 'required|mimes:png,jpg,jpeg|max:2048'
+        ])) {
+            $filename = $file->getClientOriginalName();
+            $file->storeAs('public/profil/', $filename);
+            $dtUpload->profile_img = $filename;
+        }
 
-        $nm->move(public_path() . '/img/profil', $namaFile);
         $dtUpload->save();
 
-        return redirect()->route('profile.index')
-            ->with('updatesuccess', 'Profile Ditambahkan');
+        Alert::success('Informasi Pesan!', 'Profil Anda Berhasil ditambahkan');
+        return redirect()->route('profile.index');
     }
 
     /**
@@ -85,7 +89,7 @@ class ProfileController extends Controller
         $page = "Profile Coach Anda";
         $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
         $p = Pelatih::findOrFail($id);
-        
+
         return view('pelatih.profile.edit', compact('user', 'page', 'pelatih', 'p'));
     }
 
@@ -98,22 +102,30 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $nm = $request->profile_img;
-        $namaFile = $nm->getClientOriginalName();
-        
         $dtUpload = Pelatih::findOrFail($id);
         $dtUpload->user_id = $request->user_id;
         $dtUpload->jeniskl = $request->jeniskl;
         $dtUpload->name = $request->name;
         $dtUpload->nmrhp = $request->nmrhp;
         $dtUpload->alamat = $request->alamat;
-        $dtUpload->profile_img = $namaFile;
+        $file = $request->file('profile_img');
+        if ($request->validate([
+            'profile_img' => 'required|mimes:png,jpg,jpeg|max:2048'
+        ])) {
 
-        $nm->move(public_path() . '/img/profil', $namaFile);
+            if ($request->oldImage) {
+                Storage::delete('public/profil' . $dtUpload->profile_img);
+            }
+
+            $filename = $file->getClientOriginalName();
+            $file->storeAs('public/profil/', $filename);
+            $dtUpload->profile_img = $filename;
+        }
+
         $dtUpload->save();
 
-        return redirect()->route('profile.index')
-            ->with('updatesuccess', 'Profile Ditambahkan');
+        Alert::success('Informasi Pesan!', 'Profil Anda Berhasil diedit');
+        return redirect()->route('profile.index');
     }
 
     /**

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Pelatih;
 
+use App\Models\Kind;
 use App\Models\Pelatih;
 use App\Models\Permintaan;
 use App\Models\Program;
+use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,4 +55,14 @@ class PelatihController extends Controller
         return view('pelatih.permintaan.tolak', compact('user', 'page', 'permintaan', 'pelatih'));
     }
 
+    public function tambahprogram($id)
+    {
+        $page = "Tambah Program";
+        $user = User::findOrFail($id);
+        $rumus = Kind::all();
+        $permintaan = Permintaan::where('user_id', $user->id)->get();
+        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
+        $program = Program::all()->where('user_id', $user->id)->count();
+        return view('pelatih.program.create', compact('page', 'user', 'rumus', 'pelatih', 'permintaan', 'program'));
+    }
 }

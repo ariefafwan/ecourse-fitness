@@ -44,8 +44,7 @@
                                 </td>
                                 <td align="center">
                                     <div class="btn-group">
-                                        {{-- <a href="" class="btn btn-primary btn-flat"><i class="fa fa-eye"></i></a> --}}
-                                        <a href="{{ route('program.create') }}" class="btn btn-primary btn-flat mr-2">
+                                        <a href="{{ route('tambahprogram', $row->user_id) }}" class="btn btn-primary btn-flat mr-2">
                                             <i class="fa fa-plus" aria-hidden="true"></i>
                                         </a>
                                     </div>

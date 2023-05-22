@@ -78,33 +78,42 @@ class EditUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = Auth::user($id);
+        $user = User::findOrFail($id);
+        $dtUpload = User::findOrFail($id);
+
+        //upload
+        // $request->validate([
+        //     'profile_img'    => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     'name'           => 'required|min:5',
+        //     'nmrhp'           => 'required|min:8',
+        //     'alamat'        => 'required|min:10',
+        //     'jeniskl'        => 'required|min:10'
+        // ]);
+
         $dtUpload = User::find($id);
-        
-            //upload
-            $nm = $request->profile_img;
-            $namaFile = $nm->getClientOriginalName();
+        $dtUpload->name = $request->name;
+        $dtUpload->alamat = $request->alamat;
+        $dtUpload->nmrhp = $request->nmrhp;
+        $dtUpload->jeniskl = $request->jeniskl;
 
-            // $request->validate([
-            //     'profile_img'    => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            //     'name'           => 'required|min:5',
-            //     'nmrhp'           => 'required|min:8',
-            //     'alamat'        => 'required|min:10',
-            //     'jeniskl'        => 'required|min:10'
-            // ]);
+        $file = $request->file('profile_img');
+        if ($request->validate([
+            'profile_img' => 'required|mimes:png,jpg,jpeg|max:2048'
+        ])) {
 
-            $dtUpload = User::find($id);
-            $dtUpload->name = $request->name;
-            $dtUpload->alamat = $request->alamat;
-            $dtUpload->profile_img = $namaFile;
-            $dtUpload->nmrhp = $request->nmrhp;
-            $dtUpload->jeniskl = $request->jeniskl;
-            
-            $nm->move(public_path() . '/img/profil', $namaFile);
-            $dtUpload->save();
+            if ($request->oldImage) {
+                Storage::delete('public/profil' . $dtUpload->profile_img);
+            }
+
+            $filename = $file->getClientOriginalName();
+            $file->storeAs('public/profil/', $filename);
+            $dtUpload->profile_img = $filename;
+        }
+
+        $dtUpload->save();
 
         //redirect to index
-        return redirect()->route('edituser.show', $user->id)->with(['message' => 'News created successfully!']);
+        return redirect()->route('edituser.show', $user->id);
     }
 
     /**

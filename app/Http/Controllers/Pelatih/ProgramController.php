@@ -6,7 +6,7 @@ use App\Models\Kind;
 use App\Models\Pelatih;
 use App\Models\Permintaan;
 use App\Models\Program;
-use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,8 +43,8 @@ class ProgramController extends Controller
         $page = "Program Berjalan";
         $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
         $program = Program::OrderBy('tgl', 'asc')->where('status', 'Berjalan')->where('id_user_pelatih', Auth::user()->id)->paginate(10);
-        
-        return view('pelatih.program.berjalan', compact('user', 'page' , 'program', 'pelatih'));
+
+        return view('pelatih.program.berjalan', compact('user', 'page', 'program', 'pelatih'));
     }
 
     /**
@@ -67,8 +67,8 @@ class ProgramController extends Controller
 
         $dtUpload->save();
 
-        return redirect()->route('program.create')
-            ->with('updatesuccess', 'Program Berhasil Ditambahkan');
+        Alert::success('Informasi Pesan!', 'Program Berhasil ditambahkan');
+        return redirect()->route('program.create');
     }
 
     /**
@@ -103,13 +103,12 @@ class ProgramController extends Controller
     public function update(Request $request, $id)
     {
         $dtUpload = Program::findOrFail($id);
-        
+
         $dtUpload->status = $request->status;
 
         $dtUpload->save();
-
-        return redirect()->route('terima.index')
-            ->with('updatesuccess', 'Permintaan Berhasil Ditambahkan');
+        Alert::success('Informasi Pesan!', 'Program Anda Berhasil ditambahkan');
+        return redirect()->route('terima.index');
     }
 
     /**

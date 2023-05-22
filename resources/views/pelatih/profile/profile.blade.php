@@ -13,7 +13,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class="text-right">Your Coach Profile</h4>
                         </div>
-                        <img class="rounded-circle" width="150px" src="/img/profil/{{ $p->profile_img }}">
+                        <img class="rounded-circle" width="200px" height="200px" src="{{ asset('storage/profil/' . $p->profile_img) }}">
                         <span class="font-weight-bold mt-1">{{ $p->name }}</span>
                         <span class="text-black-50">{{ $user->email }}</span>
                     </div>
