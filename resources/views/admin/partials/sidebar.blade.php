@@ -63,10 +63,17 @@
         </a>
     </li>
 
-    <li class="nav-item  {{ ($page == "Daftar Latihan") ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('latihan.index') }}">
+    <li class="nav-item  {{ ($page == "Daftar Program Berjalan") ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('program.berjalan') }}">
             <i class="fa fa-gamepad" aria-hidden="true"></i>
-            <span>Daftar Latihan</span>
+            <span>Daftar Program Berjalan</span>
+        </a>
+    </li>
+
+    <li class="nav-item  {{ ($page == "Daftar Program Selesai") ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('program.selesai') }}">
+            <i class="fa fa-flag-checkered" aria-hidden="true"></i>
+            <span>Daftar Program Selesai</span>
         </a>
     </li>
 

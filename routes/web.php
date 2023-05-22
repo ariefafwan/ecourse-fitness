@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DaftarPelatihController;
 use App\Http\Controllers\Admin\DaftarUserController;
-use App\Http\Controllers\Admin\LatihanController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Pelatih\HasilLatihanController;
@@ -49,7 +48,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin');
         Route::resource('admin/daftarpelatih', DaftarPelatihController::class);
         Route::resource('admin/daftaruser', DaftarUserController::class);
-        Route::resource('admin/latihan', LatihanController::class);
+        Route::get('programlatihanuser', [AdminController::class, 'programberjalan'])->name('program.berjalan');
+        Route::get('programlatihanuserselesai', [AdminController::class, 'programselesai'])->name('program.selesai');
+        Route::get('programlatihanuser/{id}', [AdminController::class, 'fokus'])->name('fokus');
     });
 
     //Middleware Pelatih
