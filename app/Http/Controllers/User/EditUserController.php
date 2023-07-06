@@ -98,7 +98,7 @@ class EditUserController extends Controller
 
         $file = $request->file('profile_img');
         if ($request->validate([
-            'profile_img' => 'required|mimes:png,jpg,jpeg|max:2048'
+            'profile_img' => 'required|mimes:png,jpg,jpeg|max:20000'
         ])) {
 
             if ($request->oldImage) {

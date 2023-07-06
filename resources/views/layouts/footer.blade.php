@@ -58,7 +58,7 @@
                 </span>
             </strong>
             <span class="text-primary fw-bold">
-                <a class="fw-bold"  target="_black"> Afwan</a>
+                <a class="fw-bold"  target="_black"> Hidayat</a>
                 .</span>2023
         </div>
     </div>
