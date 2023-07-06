@@ -19,7 +19,7 @@ class DaftarUserController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $page = "Daftar Pelatih";
+        $page = "Daftar User";
         $role = Role::all();
         $total = User::all()->where('role_id', '3');
         if ($total->isEmpty()) {
@@ -88,9 +88,10 @@ class DaftarUserController extends Controller
     {
         $dtUpload = User::find($id);
         $dtUpload->role_id = $request->role_id;
+        $dtUpload->save();
 
         Alert::success('Informasi Pesan!', 'Berhasil diupdate');
-        $dtUpload->save();
+        return redirect()->back();
     }
 
     /**
