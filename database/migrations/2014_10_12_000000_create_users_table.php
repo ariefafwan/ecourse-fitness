@@ -19,12 +19,11 @@ return new class extends Migration
             $table->bigInteger('role_id')->default('3')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade')->onUpdate('cascade');
             $table->string('email')->unique();
-            $table->string('profile_img')->default('profil_img.jpg')->nullable();
-            $table->string('nmrhp')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan'])->nullable();
+            $table->string('profile_img')->default('profil_img.jpg');
+            $table->string('no_hp')->nullable();
             $table->string('alamat')->nullable();
-            $table->string('jeniskl')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

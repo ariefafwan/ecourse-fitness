@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('permintaan', function (Blueprint $table) {
+        Schema::create('fokus', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('id_user')->constrained('users')->references('id')->onDelete('restrict')->onUpdate('cascade');
-            $table->foreignUuid('id_pelatih')->constrained('pelatih')->references('id')->onDelete('restrict')->onUpdate('cascade');
-            $table->enum('status', ['Menunggu', 'Ditolak', 'Diterima']);
+            $table->enum('target', ['Menurunkan Berat Badan', 'Membesarkan Otot', 'Menjaga Kebugaran']);
+            $table->enum('level', ['Pemula', 'Menengah', 'Mahir']);
+            $table->bigInteger('berat_badan');
+            $table->bigInteger('tinggi_badan');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permintaans');
+        Schema::dropIfExists('aspeks');
     }
 };

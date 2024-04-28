@@ -10,16 +10,11 @@ class Permintaan extends Model
 {
     use HasFactory;
     use HashUuid;
-    protected $table = 'permintaan';
+    protected $table = 'fokus';
     protected $primaryKey = 'id';
 
     public function dataUser()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
-    }
-
-    public function dataPelatih()
-    {
-        return $this->belongsTo(Pelatih::class, 'id_pelatih', 'id');
     }
 }

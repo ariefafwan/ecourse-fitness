@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HashUuid;
 
-class Permintaan extends Model
+class LatihanPelatih extends Model
 {
     use HasFactory;
     use HashUuid;
-    protected $table = 'permintaan';
+    protected $table = 'latihan_pelatih';
     protected $primaryKey = 'id';
 
-    public function dataUser()
+    public function dataDetailLatihanPelatih()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id');
+        return $this->hasMany(LatihanDetailPelatih::class, 'id_latihan_pelatih', 'id');
     }
 
     public function dataPelatih()
