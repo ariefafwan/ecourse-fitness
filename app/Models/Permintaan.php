@@ -22,4 +22,9 @@ class Permintaan extends Model
     {
         return $this->belongsTo(Pelatih::class, 'id_pelatih', 'id');
     }
+
+    public function dataProgramLatihan()
+    {
+        return $this->hasMany(ProgramLatihan::class, 'id_permintaan', 'id');
+    }
 }

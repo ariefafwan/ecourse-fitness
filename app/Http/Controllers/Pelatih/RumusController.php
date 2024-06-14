@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pelatih;
 
 use App\Models\Kind;
+use App\Models\LatihanPelatih;
 use App\Models\Pelatih;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
@@ -20,9 +21,9 @@ class RumusController extends Controller
     {
         $user = Auth::user();
         $page = "Daftar Rumus Anda";
-        $rumus = Kind::all();
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        return view('pelatih.rumus.daftar', compact('user', 'page', 'rumus', 'pelatih'));
+        $rumus = LatihanPelatih::all();
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        return view('new-website.pelatih.rumus.daftar', compact('user', 'page', 'rumus', 'pelatih'));
     }
 
     /**
@@ -34,9 +35,9 @@ class RumusController extends Controller
     {
         $user = Auth::user();
         $page = "Tambah Rumus Anda";
-        $rumus = Kind::all();
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        return view('pelatih.rumus.create', compact('user', 'page', 'rumus', 'pelatih'));
+        $rumus = LatihanPelatih::all();
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        return view('new-website.pelatih.rumus.create', compact('user', 'page', 'rumus', 'pelatih'));
     }
 
     /**
@@ -47,7 +48,7 @@ class RumusController extends Controller
      */
     public function store(Request $request)
     {
-        $dtUpload = new Kind();
+        $dtUpload = new LatihanPelatih();
         $dtUpload->name = $request->name;
         $dtUpload->pelatih_id = $request->pelatih_id;
         $dtUpload->latihan1 = $request->latihan1;
@@ -98,9 +99,9 @@ class RumusController extends Controller
     {
         $user = Auth::user();
         $page = "Edit Rumus";
-        $rumus = Kind::findOrFail($id);
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        return view('pelatih.rumus.edit', compact('user', 'page', 'pelatih', 'rumus'));
+        $rumus = LatihanPelatih::findOrFail($id);
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        return view('new-website.pelatih.rumus.edit', compact('user', 'page', 'pelatih', 'rumus'));
     }
 
     /**
@@ -112,7 +113,7 @@ class RumusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dtUpload = Kind::find($id);
+        $dtUpload = LatihanPelatih::find($id);
         $dtUpload->name = $request->name;
         $dtUpload->pelatih_id = $request->pelatih_id;
         $dtUpload->latihan1 = $request->latihan1;
@@ -150,7 +151,7 @@ class RumusController extends Controller
      */
     public function destroy($id)
     {
-        $latihan = Kind::findOrFail($id);
+        $latihan = LatihanPelatih::findOrFail($id);
         $latihan->delete();
 
         return redirect()->route('rumus.index');

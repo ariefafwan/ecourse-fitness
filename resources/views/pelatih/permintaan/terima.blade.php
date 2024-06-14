@@ -52,14 +52,6 @@
                             </tr>
                             @endforeach
                         </tbody>
-
-                        {{-- <tfoot>
-                            <tr>
-                                <th>Nomor</th>
-                                <th>Nama Prodi</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </tfoot> --}}
                     </table>
                 </div>
             </div>

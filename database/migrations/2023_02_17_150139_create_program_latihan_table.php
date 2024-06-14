@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('id_user')->constrained('users')->references('id')->onDelete('restrict')->onUpdate('cascade');
             $table->foreignUuid('id_pelatih')->constrained('pelatih')->references('id')->onDelete('restrict')->onUpdate('cascade');
             $table->foreignUuid('id_latihan_pelatih')->constrained('latihan_pelatih')->references('id')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignUuid('id_permintaan')->constrained('permintaan')->references('id')->onDelete('restrict')->onUpdate('cascade');
             $table->date('tanggal');
             $table->string('latihan_ke');
             $table->enum('status', ['Selesai', 'Belum Dikerjakan']);

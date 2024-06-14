@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Pelatih;
 
 use App\Models\Kind;
+use App\Models\LatihanPelatih;
 use App\Models\Pelatih;
 use App\Models\Permintaan;
 use App\Models\Program;
+use App\Models\ProgramLatihan;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,13 +24,13 @@ class TerimaController extends Controller
     {
         $user = Auth::user();
         $page = "Daftar Permintaan Program Latihan Terhadap Anda";
-        $permintaan = Permintaan::all()->where('id_user_pelatih', Auth::user()->id)->where('status', 'Pengajuan');
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        $permintaan = Permintaan::all()->where('id_pelatih', $pelatih[0]->id)->where('status', 'Pengajuan');
         if ($permintaan->isEmpty()) {
-            return view('pelatih.permintaan.belum', compact('user', 'page', 'permintaan', 'pelatih'));
+            return view('new-website.pelatih.permintaan.belum', compact('user', 'page', 'permintaan', 'pelatih'));
         }
 
-        return view('pelatih.permintaan.permintaan', compact('user', 'page', 'permintaan', 'pelatih'));
+        return view('new-website.pelatih.permintaan.permintaan', compact('user', 'page', 'permintaan', 'pelatih'));
     }
 
     /**
@@ -62,8 +64,8 @@ class TerimaController extends Controller
         $user = Auth::user();
         $page = "Detail";
         $permintaan = Permintaan::findOrFail($id);
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        return view('pelatih.permintaan.show', compact('user', 'page', 'permintaan', 'pelatih'));
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        return view('new-website.pelatih.permintaan.show', compact('user', 'page', 'permintaan', 'pelatih'));
     }
 
     /**
@@ -76,10 +78,10 @@ class TerimaController extends Controller
     {
         $user = Auth::user();
         $page = "Tambah Program";
-        $rumus = Kind::all();
-        $program = Program::findOrFail($id);
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        return view('pelatih.program.tambah', compact('user', 'page', 'program', 'rumus', 'pelatih'));
+        $rumus = LatihanPelatih::all();
+        $program = ProgramLatihan::findOrFail($id);
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        return view('new-website.pelatih.program.tambah', compact('user', 'page', 'program', 'rumus', 'pelatih'));
     }
 
     /**

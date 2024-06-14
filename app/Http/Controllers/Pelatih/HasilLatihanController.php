@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Pelatih;
 
 use App\Models\Kind;
 use App\Models\Latihan;
+use App\Models\LatihanPelatih;
 use App\Models\Pelatih;
 use App\Models\Program;
+use App\Models\ProgramLatihan;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,11 +23,11 @@ class HasilLatihanController extends Controller
     {
         $user = Auth::user();
         $page = "Hasil Program";
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        $program = Program::latest()->orderBy('created_at', 'desc')->where('status', 'Selesai')->paginate(10);
-        $rumus = Kind::all();
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        $program = ProgramLatihan::latest()->orderBy('created_at', 'desc')->where('status', 'Selesai')->paginate(10);
+        $rumus = LatihanPelatih::all();
 
-        return view('pelatih.program.selesai', compact('user', 'page', 'program', 'rumus', 'pelatih'));
+        return view('new-website.pelatih.program.selesai', compact('user', 'page', 'program', 'rumus', 'pelatih'));
     }
 
     /**

@@ -23,9 +23,9 @@ class DaftarUserController extends Controller
         $role = Role::all();
         $total = User::all()->where('role_id', '3');
         if ($total->isEmpty()) {
-            return view('admin.duser.belum', compact('user', 'total', 'page', 'role'));
+            return view('new-website.admin.duser.belum', compact('user', 'total', 'page', 'role'));
         }
-        return view('admin.duser.daftaruser', compact('user', 'total', 'page', 'role'));
+        return view('new-website.admin.duser.daftaruser', compact('user', 'total', 'page', 'role'));
     }
 
     /**
@@ -60,7 +60,7 @@ class DaftarUserController extends Controller
         $user = Auth::user();
         $page = "Detail User";
         $detail = User::findOrFail($id);
-        return view('admin.duser.show', compact('user', 'page', 'detail'));
+        return view('new-website.admin.duser.show', compact('user', 'page', 'detail'));
     }
 
     /**
@@ -74,7 +74,7 @@ class DaftarUserController extends Controller
         $user = Auth::user();
         $page = "Edit User";
         $detail = User::findOrFail($id);
-        return view('admin.duser.show', compact('user', 'page', 'detail'));
+        return view('new-website.admin.duser.show', compact('user', 'page', 'detail'));
     }
 
     /**
