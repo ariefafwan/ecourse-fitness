@@ -21,8 +21,8 @@
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
       <div class="navbar-bg"></div>
-      @include('new-website.pelatih.layout.navbar')
-      @include('new-website.pelatih.layout.sidebar')
+      @include('new-website.user.layout.navbar')
+      @include('new-website.user.layout.sidebar')
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
@@ -37,9 +37,8 @@
           </div>
         </section>
       </div>
-      @include('new-website.pelatih.layout.footer')
+      @include('new-website.user.layout.footer')
     </div>
-    @stack('include')
   </div>
 
   <!-- General JS Scripts -->
@@ -61,6 +60,5 @@
   <!-- Template JS File -->
   <script src="{{ asset('assets/js/scripts.js') }}"></script>
   <script src="{{ asset('assets/js/custom.js') }} "></script>
-  @stack('js')
 </body>
 </html>

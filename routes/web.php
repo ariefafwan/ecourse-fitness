@@ -56,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
     //Middleware Pelatih
     Route::middleware(['pelatih'])->group(function () {
         Route::get('pelatih/dashboard', [PelatihController::class, 'index'])->name('pelatih');
-        Route::resource('pelatih/rumus', RumusController::class);
+        Route::resource('pelatih/rumus', RumusController::class)->except('show');
         Route::resource('pelatih/terima', TerimaController::class);
         Route::get('pelatih/diterima', [PelatihController::class, 'terima'])->name('diterima');
         Route::get('pelatih/ditolak', [PelatihController::class, 'tolak'])->name('ditolak');
@@ -64,6 +64,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pelatih/selesai', HasilLatihanController::class);
         Route::resource('pelatih/profile', ProfileController::class);
         Route::get('tambahprogram/{id}', [PelatihController::class, 'tambahprogram'])->name('tambahprogram');
+        Route::put('pelatih/update_detail_rumus/{id}', [PelatihController::class, 'update_rumus_detail']);
+        Route::delete('pelatih/delete_detail_rumus/{id}', [PelatihController::class, 'delete_rumus_detail'])->name('detailrumus.delete');
+        // Route::put('pelatih/update_rumus/{id}', [PelatihController::class, 'update_rumus']);
     });
 
     //Middleware User

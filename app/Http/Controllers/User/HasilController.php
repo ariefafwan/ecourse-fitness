@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Program;
+use App\Models\ProgramLatihan;
 use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
@@ -19,9 +20,9 @@ class HasilController extends Controller
     {
         $user = Auth::user();
         $page = "Program Berjalan Anda";
-        $program = Program::all()->where('user_id', Auth::user()->id)->where('status', 'Berjalan');
-        
-        return view('user.program.program', compact('user', 'page', 'program'));
+        $program = ProgramLatihan::all()->where('id_user', Auth::user()->id)->where('status', 'Berjalan');
+
+        return view('new-website.user.program.program', compact('user', 'page', 'program'));
     }
 
     /**
@@ -34,9 +35,9 @@ class HasilController extends Controller
         //Page Hasil Program
         $user = Auth::user();
         $page = "Program Latihan Selesai";
-        $program = Program::OrderBy('created_at', 'desc')->where('status', 'Selesai')->where('user_id', Auth::user()->id)->paginate(10);
-        
-        return view('user.program.selesai', compact('user', 'page', 'program'));
+        $program = ProgramLatihan::OrderBy('created_at', 'desc')->where('status', 'Selesai')->where('id_user', Auth::user()->id)->paginate(10);
+
+        return view('new-website.user.program.selesai', compact('user', 'page', 'program'));
     }
 
     /**
@@ -60,9 +61,9 @@ class HasilController extends Controller
     {
         $user = Auth::user();
         $page = "Program Berjalan Anda";
-        $program = Program::findOrFail($id);
+        $program = ProgramLatihan::findOrFail($id);
 
-        return view('user.program.show', compact('user', 'page', 'program'));
+        return view('new-website.user.program.show', compact('user', 'page', 'program'));
     }
 
     /**

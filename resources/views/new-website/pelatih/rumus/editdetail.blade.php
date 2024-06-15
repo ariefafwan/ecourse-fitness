@@ -12,8 +12,16 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                        <label class="labels">Nama Rumus Latihan Anda</label>
-                    <input type="text" name="nama_latihan" id="edit_nama_latihan" class="form-control" placeholder="Nama Rumus Latihan" required>
+                        <label class="labels">Urutan Gerakan</label>
+                        <input type="number" name="urutan" id="edit_urutan" class="form-control" placeholder="Urutan Gerakan Latihan" required>
+                    </div>
+                    <div>
+                        <label class="labels">Nama Gerakan</label>
+                        <input type="text" name="nama" id="edit_nama" class="form-control" placeholder="Nama Gerakan Latihan" required>
+                    </div>
+                    <div class="mt-2">
+                        <label class="labels">Video Gerakan (Max 2Mb) (Optional atau Jika Ingin Mengupdate Saja)</label>
+                        <input type="file" name="file" id="file" class="form-control" placeholder="Video Latihan">
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -1,4 +1,4 @@
-@extends('new-website.pelatih.layout.app')
+@extends('new-website.user.layout.app')
 
 @section('content')
 
@@ -6,8 +6,8 @@
     <div class="row">
     <div class="container text-dark">
         
-        Silahkan Terima Permintaan Program Terlebih Dahulu Dari User        
-        
+        Anda Sudah Memesan Pelatih. Mari Tunggu Hingga Dia memberikan Program Terbaik Untuk Anda
+
     </div>
     </div>
 </div>

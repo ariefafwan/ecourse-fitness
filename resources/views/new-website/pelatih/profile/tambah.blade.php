@@ -13,7 +13,7 @@
                 <div class="col-md-4 border-right">
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="200px" height="200px" src="{{ asset ('storage/profil/profil_img.jpg') }}"><span class="font-weight-bold">{{ $user->name }}</span><span class="text-black-50">{{ $user->email }}</span><span> </span></div>
                     <div class="col-md-12">
-                        <input type="file" id="profile_img" name="profile_img" class="form-control align-item center" placeholder="first name" required>
+                        <input type="file" id="profile_img" name="profile_img" class="form-control align-item center" placeholder="first name">
                         *JPG|PNG
                     </div>
                 </div>

@@ -23,18 +23,18 @@
           <ul class="dropdown-menu">
             <li class="{{ ($page == "Berikan Program Anda") ? 'active' : '' }}"><a href="{{ route('program.index') }}">Menuggu Program Latihan</a></li> 
             <li class="{{ ($page == "Program Berjalan") ? 'active' : '' }}"><a href="{{ route('program.create') }}">Program Latihan Berjalan</a></li>
-            <li class="{{ ($page == "Hasil Latihan") ? 'active' : '' }}"><a href="{{ route('selesai.index') }}">Hasil Program</a></li>
+            <li class="{{ ($page == "Hasil Program") ? 'active' : '' }}"><a href="{{ route('selesai.index') }}">Hasil Program</a></li>
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="nav-link has-dropdown"><i class="fas fa-ellipsis-h"></i> <span>Permintaan Latihan</span></a>
           <ul class="dropdown-menu">
-            <li class="{{ ($page == "Berikan Program Anda") ? 'active' : '' }}"><a href="{{ route('terima.index') }}">Permintaan Masuk</a></li> 
-            <li class="{{ ($page == "Program Berjalan") ? 'active' : '' }}"><a href="{{ route('diterima') }}">Permintaan Diterima</a></li>
-            <li class="{{ ($page == "Hasil Latihan") ? 'active' : '' }}"><a href="{{ route('ditolak') }}">Perminataan Ditolak</a></li>
+            <li class="{{ ($page == "Daftar Permintaan Program Latihan Terhadap Anda") ? 'active' : '' }}"><a href="{{ route('terima.index') }}">Permintaan Masuk</a></li> 
+            <li class="{{ ($page == "Daftar Permintaan Diterima") ? 'active' : '' }}"><a href="{{ route('diterima') }}">Permintaan Diterima</a></li>
+            <li class="{{ ($page == "Daftar Permintaan Ditolak") ? 'active' : '' }}"><a href="{{ route('ditolak') }}">Perminataan Ditolak</a></li>
           </ul>
         </li>
-        <li class="{{ ($page === "Rumus Latihan") ? 'active' : ''}}"><a class="nav-link" href="{{ route('rumus.index') }}"><i class="fas fa-tasks"></i> <span>Rumus Latihan</span></a></li>
+        <li class="{{ ($page === "Daftar Rumus Latihan" || $page == 'Tambah Rumus Latihan' || $page == 'Edit Rumus Latihan') ? 'active' : ''}}"><a class="nav-link" href="{{ route('rumus.index') }}"><i class="fas fa-tasks"></i> <span>Rumus Latihan</span></a></li>
         @endif  
       </ul>        
     </aside>

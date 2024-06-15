@@ -12,7 +12,6 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $page = "Dasboard User";
-        // $dt1 = DB::table('users')->get()->where('role_id', '2')->count();
-        return view('user.dashboard', compact('user', 'page'));
+        return view('new-website.user.dashboard', compact('user', 'page'));
     }
 }

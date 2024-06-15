@@ -3,7 +3,6 @@
 @section('content')
 
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Program Latihan Berjalan</h1>
     <div class="row">
     <div class="container">
         <div class="col-xs-12">

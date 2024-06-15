@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HashUuid;
 
-class Permintaan extends Model
+class Fokus extends Model
 {
     use HasFactory;
     use HashUuid;

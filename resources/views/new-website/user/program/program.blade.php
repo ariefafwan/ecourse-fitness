@@ -1,4 +1,4 @@
-@extends('new-website.pelatih.layout.app')
+@extends('new-website.user.layout.app')
 
 @section('content')
 
@@ -12,29 +12,32 @@
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
-                                <th class="text-center">Nama User</th>
-                                <th class="text-center">Nomor Handphone</th>
+                                <th class="text-center">Nama Pelatih</th>
+                                <th class="text-center">Nomor HP Pelatih</th>
                                 <th class="text-center">Alamat</th>
-                                <th class="text-center">Fokus Latihan</th>
-                                <th class="text-center">Status</th>
+                                <th class="text-center">Tanggal Latihan</th>
+                                <th class="text-center">Runtutan Latihan Ke</th>
+                                <th class="text-center">Lihat Detail Latihan</th>
+
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach($permintaan as $index => $row)
+                            @foreach($program as $index => $row)
                             <tr align="center">
                                 <th>{{ $loop->iteration }}</th>
-                                <td align="center">{{ $row->dataUser->name }}</td>
-                                <td align="center">{{ $row->dataUser->no_hp }}</td>
-                                <td align="center">{{ $row->dataUser->alamat }}</td>
+                                <td align="center">{{ $row->pelatih->name }}</td>
+                                <td align="center">{{ $row->pelatih->no_hp }}</td>
+                                <td align="center">{{ $row->pelatih->alamat }}</td>
+                                <td align="center">{{ $row->tanggal }}</td>
+                                <td align="center">{{ $row->latihan_ke }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('terima.show',$row->id) }}" class="btn btn-warning btn-flat mr-2">
+                                        <a href="{{ route('hasil.show',$row->id) }}" class="btn btn-warning btn-flat mr-2">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                 </td>
-                                <td align="center">{{ $row->status }}</td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Models\Aspek;
 use App\Models\User;
+use App\Models\Fokus;
+use App\Models\Permintaan;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,13 +20,13 @@ class AspekController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $page = "Tambah Fokus Latihan Anda";
+        $page = "Fokus Latihan Anda";
 
-        $aspek = Aspek::all()->where('user_id', Auth::user()->id);
+        $aspek = Fokus::all()->where('id_user', Auth::user()->id);
         if ($aspek->isEmpty()) {
             return redirect()->route('aspek.create');
         }
-        return view('user.aspek.aspek', compact('user', 'page', 'aspek'));
+        return view('new-website.user.aspek.aspek', compact('user', 'page', 'aspek'));
     }
 
     /**
@@ -36,8 +38,8 @@ class AspekController extends Controller
     {
         $user = Auth::user();
         $page = "Tambah Fokus Latihan Anda";
-        $aspek = Aspek::all();
-        return view('user.aspek.tambah', compact('user', 'page', 'aspek'));
+        $aspek = Fokus::all();
+        return view('new-website.user.aspek.tambah', compact('user', 'page', 'aspek'));
     }
 
     /**
@@ -47,17 +49,13 @@ class AspekController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
-        $dtUpload = new Aspek();
-        $dtUpload->user_id = $request->user_id;
-        $dtUpload->fokus = $request->fokus;
+    {
+        $dtUpload = new Fokus();
+        $dtUpload->id_user = $request->id_user;
         $dtUpload->target = $request->target;
-        $dtUpload->tingkat = $request->tingkat;
-        $dtUpload->motivasi = $request->motivasi;
-        $dtUpload->aktivitas = $request->aktivitas;
-        $dtUpload->runtutan = $request->runtutan;
-        $dtUpload->bb = $request->bb;
-        $dtUpload->tb = $request->tb;
+        $dtUpload->level = $request->level;
+        $dtUpload->berat_badan = $request->berat_badan;
+        $dtUpload->tinggi_badan = $request->tinggi_badan;
 
         $dtUpload->save();
 
@@ -85,8 +83,8 @@ class AspekController extends Controller
     {
         $user = Auth::user();
         $page = "Edit Fokus Latihan Anda";
-        $aspek = Aspek::findOrFail($id);
-        return view('user.aspek.edit', compact('user', 'page', 'aspek'));
+        $aspek = Fokus::findOrFail($id);
+        return view('new-website.user.aspek.edit', compact('user', 'page', 'aspek'));
     }
 
     /**
@@ -98,16 +96,11 @@ class AspekController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dtUpload = Aspek::findOrFail($id);
-        $dtUpload->user_id = $request->user_id;
-        $dtUpload->fokus = $request->fokus;
+        $dtUpload = Fokus::findOrFail($id);
         $dtUpload->target = $request->target;
-        $dtUpload->tingkat = $request->tingkat;
-        $dtUpload->motivasi = $request->motivasi;
-        $dtUpload->aktivitas = $request->aktivitas;
-        $dtUpload->runtutan = $request->runtutan;
-        $dtUpload->bb = $request->bb;
-        $dtUpload->tb = $request->tb;
+        $dtUpload->level = $request->level;
+        $dtUpload->berat_badan = $request->berat_badan;
+        $dtUpload->tinggi_badan = $request->tinggi_badan;
 
         $dtUpload->save();
 

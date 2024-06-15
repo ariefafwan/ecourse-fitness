@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('latihan_detail_pelatih', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('id_latihan_pelatih')->constrained('latihan_pelatih')->references('id')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignUuid('id_latihan_pelatih')->constrained('latihan_pelatih')->references('id')->onDelete('cascade')->onUpdate('cascade');
             $table->string('nama');
+            $table->tinyInteger('urutan');
             $table->string('file');
             $table->timestamps();
         });

@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasMany(Pelatih::class);
     }
 
+    public function dataFokus()
+    {
+        return $this->hasOne(Fokus::class, 'id_user', 'id');
+    }
+
     public function permintaan()
     {
         return $this->hasMany(Permintaan::class);
