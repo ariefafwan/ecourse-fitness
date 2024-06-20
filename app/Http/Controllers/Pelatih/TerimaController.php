@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Pelatih;
 
+use App\Models\Fokus;
 use App\Models\Kind;
+use App\Models\LatihanPelatih;
 use App\Models\Pelatih;
 use App\Models\Permintaan;
 use App\Models\Program;
+use App\Models\ProgramLatihan;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TerimaController extends Controller
 {
@@ -21,14 +25,13 @@ class TerimaController extends Controller
     {
         $user = Auth::user();
         $page = "Daftar Permintaan Program Latihan Terhadap Anda";
-        $permintaan = Permintaan::all()->where('id_user_pelatih', Auth::user()->id)->where('status', 'Pengajuan');
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        $permintaan = Permintaan::all()->where('id_pelatih', $pelatih[0]->id)->where('status', 'Menunggu');
         if ($permintaan->isEmpty()) {
-            return view('pelatih.permintaan.belum', compact('user', 'page', 'permintaan', 'pelatih'));
+            return view('new-website.pelatih.permintaan.belum', compact('user', 'page', 'permintaan', 'pelatih'));
         }
 
-        return view('pelatih.permintaan.permintaan', compact('user', 'page', 'permintaan', 'pelatih'));
-
+        return view('new-website.pelatih.permintaan.permintaan', compact('user', 'page', 'permintaan', 'pelatih'));
     }
 
     /**
@@ -38,7 +41,6 @@ class TerimaController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -61,10 +63,11 @@ class TerimaController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $page = "Detail";
+        $page = "Detail Fokus User";
         $permintaan = Permintaan::findOrFail($id);
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        return view('pelatih.permintaan.show', compact('user', 'page', 'permintaan', 'pelatih'));
+        $fokusUser = Fokus::where('id_user', $permintaan->id_user)->first();
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        return view('new-website.pelatih.permintaan.show', compact('user', 'page', 'permintaan', 'pelatih', 'fokusUser'));
     }
 
     /**
@@ -77,10 +80,10 @@ class TerimaController extends Controller
     {
         $user = Auth::user();
         $page = "Tambah Program";
-        $rumus = Kind::all();
-        $program = Program::findOrFail($id);
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        return view('pelatih.program.tambah', compact('user', 'page', 'program', 'rumus', 'pelatih'));
+        $program = ProgramLatihan::findOrFail($id);
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        $rumus = LatihanPelatih::where('id_pelatih', $pelatih[0]->id)->get();
+        return view('new-website.pelatih.program.tambah', compact('user', 'page', 'program', 'rumus', 'pelatih'));
     }
 
     /**
@@ -92,15 +95,13 @@ class TerimaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dtUpload = Permintaan::findOrFail($id);        
+        $dtUpload = Permintaan::findOrFail($id);
         $dtUpload->status = $request->status;
-        // $dtUpload->tgl = $request->tgl;
-        // $dtUpload->kind_id = $request->kind_id;
 
         $dtUpload->save();
 
-        return redirect()->route('terima.index')
-            ->with('updatesuccess', 'Permintaan Berhasil Ditambahkan');
+        Alert::success('Informasi Pesan!', 'Permintaan Berhasil diupdate');
+        return redirect()->route('terima.index');
     }
 
     /**

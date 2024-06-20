@@ -4,28 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HashUuid;
 
 class Permintaan extends Model
 {
     use HasFactory;
+    use HashUuid;
+    protected $table = 'permintaan';
+    protected $primaryKey = 'id';
 
-    public function aspek()
+    public function dataUser()
     {
-        return $this->belongsTo(Aspek::class);
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 
-    public function user()
+    public function dataPelatih()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Pelatih::class, 'id_pelatih', 'id');
     }
 
-    public function program()
+    public function dataProgramLatihan()
     {
-        return $this->hasMany(Program::class);
-    }
-
-    public function pelatih()
-    {
-        return $this->belongsTo(Pelatih::class);
+        return $this->hasMany(ProgramLatihan::class, 'id_permintaan', 'id');
     }
 }

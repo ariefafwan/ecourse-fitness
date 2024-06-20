@@ -22,9 +22,9 @@ class DaftarPelatihController extends Controller
         $role = Role::all();
         $pelatih = User::all()->where('role_id', '2');
         if ($pelatih->isEmpty()) {
-            return view('admin.dpelatih.belum', compact('user', 'pelatih', 'page', 'role'));
+            return view('new-website.admin.dpelatih.belum', compact('user', 'pelatih', 'page', 'role'));
         }
-        return view('admin.dpelatih.daftarpelatih', compact('user', 'pelatih', 'page', 'role'));
+        return view('new-website.admin.dpelatih.daftarpelatih', compact('user', 'pelatih', 'page', 'role'));
     }
 
     /**

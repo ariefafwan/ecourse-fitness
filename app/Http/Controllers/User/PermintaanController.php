@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\Aspek;
+use App\Models\Fokus;
 use App\Models\Pelatih;
 use App\Models\Permintaan;
 use App\Models\Program;
@@ -23,20 +23,20 @@ class PermintaanController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $page = "Order Pelatih Anda";
         $pelatih = Pelatih::all();
-        
-        $permintaan = Permintaan::all()->where('user_id', Auth::user()->id)->where('status', 'Pengajuan');
-        
-        $aspek = Aspek::all()->where('user_id', Auth::user()->id);
+
+        $permintaan = Permintaan::all()->where('id_user', Auth::user()->id);
+
+        $aspek = Fokus::all()->where('id_user', Auth::user()->id);
         if ($aspek->isEmpty()) {
-            return view('user.permintaan.belum', compact('user', 'page', 'pelatih', 'aspek' ,'permintaan'));
+            $page = "Anda Belum Mengisi Fokus Anda";
+            return view('new-website.user.permintaan.belum', compact('user', 'page', 'pelatih', 'aspek', 'permintaan'));
+        } else if ($permintaan->isEmpty()) {
+            $page = "Order Pelatih Anda";
+            return view('new-website.user.permintaan.ajukan', compact('user', 'page', 'pelatih', 'permintaan', 'aspek'));
         }
-        else if ($permintaan->isEmpty()) {
-            return view('user.permintaan.ajukan', compact('user', 'page', 'pelatih', 'permintaan', 'aspek'));
-        }
-        
-        return view('user.permintaan.sudah', compact('user', 'page', 'pelatih', 'permintaan', 'aspek'));
+        $page = "Anda Sudah Memesan Pelatih";
+        return view('new-website.user.permintaan.sudah', compact('user', 'page', 'pelatih', 'permintaan', 'aspek'));
     }
 
     /**
@@ -58,11 +58,9 @@ class PermintaanController extends Controller
     public function store(Request $request)
     {
         $dtUpload = new Permintaan();
-        $dtUpload->aspek_id = $request->aspek_id;
-        $dtUpload->user_id = $request->user_id;
-        $dtUpload->pelatih_id = $request->pelatih_id;
+        $dtUpload->id_user = Auth::user()->id;
+        $dtUpload->id_pelatih = $request->id_pelatih;
         $dtUpload->status = $request->status;
-        $dtUpload->id_user_pelatih = $request->id_user_pelatih;
 
         $dtUpload->save();
 
@@ -78,7 +76,6 @@ class PermintaanController extends Controller
      */
     public function show($id)
     {
-        
     }
 
     /**

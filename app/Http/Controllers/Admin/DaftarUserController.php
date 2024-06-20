@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DaftarUserController extends Controller
 {
@@ -18,13 +19,13 @@ class DaftarUserController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $page = "Daftar Pelatih";
+        $page = "Daftar User";
         $role = Role::all();
-        $total = User::all()-> where('role_id', '3');
+        $total = User::all()->where('role_id', '3');
         if ($total->isEmpty()) {
-            return view('admin.duser.belum', compact('user', 'total', 'page', 'role'));
+            return view('new-website.admin.duser.belum', compact('user', 'total', 'page', 'role'));
         }
-        return view('admin.duser.daftaruser', compact('user', 'total', 'page', 'role'));
+        return view('new-website.admin.duser.daftaruser', compact('user', 'total', 'page', 'role'));
     }
 
     /**
@@ -59,7 +60,7 @@ class DaftarUserController extends Controller
         $user = Auth::user();
         $page = "Detail User";
         $detail = User::findOrFail($id);
-        return view('admin.duser.show', compact('user', 'page', 'detail'));
+        return view('new-website.admin.duser.show', compact('user', 'page', 'detail'));
     }
 
     /**
@@ -73,7 +74,7 @@ class DaftarUserController extends Controller
         $user = Auth::user();
         $page = "Edit User";
         $detail = User::findOrFail($id);
-        return view('admin.duser.show', compact('user', 'page', 'detail'));
+        return view('new-website.admin.duser.show', compact('user', 'page', 'detail'));
     }
 
     /**
@@ -87,8 +88,10 @@ class DaftarUserController extends Controller
     {
         $dtUpload = User::find($id);
         $dtUpload->role_id = $request->role_id;
-
         $dtUpload->save();
+
+        Alert::success('Informasi Pesan!', 'Berhasil diupdate');
+        return redirect()->back();
     }
 
     /**

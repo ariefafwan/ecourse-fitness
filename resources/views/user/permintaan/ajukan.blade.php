@@ -31,7 +31,7 @@
             <section class="light">
                 @foreach ($pelatih as $row)
                     <article class="postcard dark red">
-                        <img class="postcard__img" style="width: 20%" src="/img/profil/{{ $row->profile_img }}" alt="Card image cap">
+                        <img class="postcard__img" width="200px" height="250px" src="{{ asset('storage/profil/' . $row->profile_img) }}">
                         <div class="postcard__text">
                             <h6 class="postcard__title red text-primary">{{ $row->name }}</h6>
                             <div class="postcard__bar"></div>

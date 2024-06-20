@@ -47,24 +47,14 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function aspek()
-    {
-        return $this->hasMany(Aspek::class);
-    }
-
     public function pelatih()
     {
         return $this->hasMany(Pelatih::class);
     }
 
-    public function kind()
+    public function dataFokus()
     {
-        return $this->hasMany(Kind::class);
-    }
-
-    public function program()
-    {
-        return $this->hasMany(Program::class);
+        return $this->hasOne(Fokus::class, 'id_user', 'id');
     }
 
     public function permintaan()
@@ -72,5 +62,8 @@ class User extends Authenticatable
         return $this->hasMany(Permintaan::class);
     }
 
-    
+    public function dataProgramLatihan()
+    {
+        return $this->hasMany(ProgramLatihan::class, 'id_user', 'id');
+    }
 }

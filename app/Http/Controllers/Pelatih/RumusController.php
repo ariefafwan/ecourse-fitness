@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Pelatih;
 
 use App\Models\Kind;
-use App\Models\Latihan;
+use App\Models\LatihanDetailPelatih;
+use App\Models\LatihanPelatih;
 use App\Models\Pelatih;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class RumusController extends Controller
 {
@@ -19,10 +22,10 @@ class RumusController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $page = "Daftar Rumus Anda";
-        $rumus = Kind::all();
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        return view('pelatih.rumus.daftar', compact('user', 'page', 'rumus', 'pelatih'));
+        $page = "Daftar Rumus Latihan";
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        $rumus = LatihanPelatih::where('id_pelatih', $pelatih[0]->id)->get();
+        return view('new-website.pelatih.rumus.daftar', compact('user', 'page', 'rumus', 'pelatih'));
     }
 
     /**
@@ -33,10 +36,10 @@ class RumusController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $page = "Tambah Rumus Anda";
-        $rumus = Kind::all();
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        return view('pelatih.rumus.create', compact('user', 'page', 'rumus', 'pelatih'));
+        $page = "Tambah Rumus Latihan";
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        $rumus = LatihanPelatih::where('id_pelatih', $pelatih[0]->id)->get();
+        return view('new-website.pelatih.rumus.create', compact('user', 'page', 'rumus', 'pelatih'));
     }
 
     /**
@@ -47,35 +50,46 @@ class RumusController extends Controller
      */
     public function store(Request $request)
     {
-        $dtUpload = new Kind();
-        $dtUpload->name = $request->name;
-        $dtUpload->pelatih_id = $request->pelatih_id;
-        $dtUpload->latihan1 = $request->latihan1;
-        $dtUpload->latihan2 = $request->latihan2;
-        $dtUpload->latihan3 = $request->latihan3;
-        $dtUpload->latihan4 = $request->latihan4;
-        $dtUpload->latihan5 = $request->latihan5;
-        $dtUpload->latihan6 = $request->latihan6;
-        $dtUpload->latihan7 = $request->latihan7;
-        $dtUpload->latihan8 = $request->latihan8;
-        $dtUpload->latihan9 = $request->latihan9;
-        $dtUpload->latihan10 = $request->latihan10;
-        $dtUpload->latihan11 = $request->latihan11;
-        $dtUpload->latihan12 = $request->latihan12;
-        $dtUpload->latihan13 = $request->latihan13;
-        $dtUpload->latihan14 = $request->latihan14;
-        $dtUpload->latihan15 = $request->latihan15;
-        $dtUpload->latihan16 = $request->latihan16;
-        $dtUpload->latihan17 = $request->latihan17;
-        $dtUpload->latihan18 = $request->latihan18;
-        $dtUpload->latihan19 = $request->latihan19;
-        $dtUpload->latihan20 = $request->latihan20;
+        $request->validate([
+            'file.*' => 'required|mimes:mp4,WEBM|max:2000'
+        ]);
 
-        $dtUpload->save();
+        try {
+            DB::beginTransaction();
+            $pelatih = Pelatih::where('id_user', Auth::user()->id)->first();
+            $dtUpload = new LatihanPelatih();
+            $dtUpload->nama_latihan = $request->nama_latihan;
+            $dtUpload->id_pelatih = $pelatih->id;
+            $dtUpload->save();
 
+            foreach ($request->nama as $data => $index) {
+                $cek = LatihanDetailPelatih::where('id_latihan_pelatih', $dtUpload->id)
+                    ->where('urutan', $request->urutan[$data])->first();
 
-        return redirect()->route('rumus.index')
-            ->with('updatesuccess', 'Latihan Berhasil Ditambahkan');
+                if (isset($cek)) {
+                    Alert::error('Informasi Pesan!', 'Urutan Tidak Boleh Sama');
+                    return redirect()->back();
+                }
+
+                $newdata = new LatihanDetailPelatih();
+                $newdata->id_latihan_pelatih = $dtUpload->id;
+                $newdata->nama = $request->nama[$data];
+                $newdata->urutan = $request->urutan[$data];
+                $file = $request->file[$data];
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->storeAs('public/video/', $filename);
+                $newdata->file = $filename;
+                $newdata->save();
+            }
+
+            DB::commit();
+            Alert::success('Informasi Pesan!', 'Rumus Latihan Anda Berhasil ditambahkan');
+            return redirect()->route('rumus.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Alert::error('Informasi Pesan!', $e->getMessage());
+            return redirect()->back();
+        }
     }
 
     /**
@@ -98,10 +112,11 @@ class RumusController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        $page = "Edit Rumus";
-        $rumus = Kind::findOrFail($id);
-        $pelatih = Pelatih::all()->where('user_id', Auth::user()->id);
-        return view('pelatih.rumus.edit', compact('user', 'page', 'latihan', 'pelatih'));
+        $page = "Edit Rumus Latihan";
+        $rumus = LatihanPelatih::findOrFail($id);
+        $latihanDetail = LatihanDetailPelatih::where('id_latihan_pelatih', $rumus->id)->orderBy('urutan')->get();
+        $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        return view('new-website.pelatih.rumus.show', compact('user', 'page', 'pelatih', 'rumus', 'latihanDetail'));
     }
 
     /**
@@ -113,16 +128,12 @@ class RumusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dtUpload = Kind::find($id);
-        $dtUpload->name = $request->name;
-        $dtUpload->pelatih_id = $request->pelatih_id;
-        $dtUpload->latihan1_id = $request->latihan1_id;
-
+        $dtUpload = LatihanPelatih::findOrFail($id);
+        $dtUpload->nama_latihan = $request->nama_latihan;
         $dtUpload->save();
 
-
-        return redirect()->route('rumus.index')
-            ->with('updatesuccess', 'Rumus Berhasil Ditambahkan');
+        Alert::success('Informasi Pesan!', 'Rumus Anda Berhasil diupdate');
+        return redirect()->route('rumus.index');
     }
 
     /**
@@ -133,10 +144,9 @@ class RumusController extends Controller
      */
     public function destroy($id)
     {
-        $latihan = Kind::findOrFail($id);
+        $latihan = LatihanPelatih::findOrFail($id);
         $latihan->delete();
 
-        return redirect()->route('Rumus.index')
-            ->with('updatesuccess', 'Berhasil Dihapus');
+        return redirect()->route('rumus.index');
     }
 }
