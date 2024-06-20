@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\LatihanDetailPelatih;
+use App\Models\LatihanPelatih;
 use App\Models\Program;
 use App\Models\ProgramLatihan;
 use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HasilController extends Controller
 {
@@ -20,7 +23,7 @@ class HasilController extends Controller
     {
         $user = Auth::user();
         $page = "Program Berjalan Anda";
-        $program = ProgramLatihan::all()->where('id_user', Auth::user()->id)->where('status', 'Berjalan');
+        $program = ProgramLatihan::all()->where('id_user', Auth::user()->id)->where('status', 'Belum Dikerjakan');
 
         return view('new-website.user.program.program', compact('user', 'page', 'program'));
     }
@@ -60,10 +63,11 @@ class HasilController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $page = "Program Berjalan Anda";
+        $page = "Detail Latihan Anda";
         $program = ProgramLatihan::findOrFail($id);
-
-        return view('new-website.user.program.show', compact('user', 'page', 'program'));
+        $latihan = LatihanDetailPelatih::where('id_latihan_pelatih', $program->dataLatihanPelatih->id)->orderBy('urutan')->get();
+        // dd($latihan);
+        return view('new-website.user.program.show', compact('user', 'page', 'program', 'latihan'));
     }
 
     /**
@@ -74,7 +78,11 @@ class HasilController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $page = "Hasil Latihan Anda";
+        $program = ProgramLatihan::findOrFail($id);
+        $latihan = LatihanDetailPelatih::where('id_latihan_pelatih', $program->dataLatihanPelatih->id)->orderBy('urutan')->get();
+        return view('new-website.user.program.detail', compact('user', 'page', 'program', 'latihan'));
     }
 
     /**
@@ -86,7 +94,14 @@ class HasilController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dtUpload = ProgramLatihan::findOrFail($id);
+
+        $dtUpload->status = 'Selesai';
+
+        $dtUpload->save();
+
+        Alert::success('Informasi Pesan!', 'Program Selesai Dikerjakan');
+        return redirect()->route('hasil.index');
     }
 
     /**

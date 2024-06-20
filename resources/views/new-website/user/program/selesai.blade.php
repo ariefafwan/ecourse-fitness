@@ -21,19 +21,18 @@
 
                             </tr>
                         </thead>
-
                         <tbody>
                             @foreach($program as $index => $row)
                             <tr align="center">
                                 <th>{{ $loop->iteration }}</th>
-                                <td align="center">{{ $row->pelatih->name }}</td>
-                                <td align="center">{{ $row->pelatih->no_hp }}</td>
-                                <td align="center">{{ $row->pelatih->alamat }}</td>
+                                <td align="center">{{ $row->dataPelatih->dataUser->name }}</td>
+                                <td align="center">{{ $row->dataPelatih->dataUser->no_hp }}</td>
+                                <td align="center">{{ $row->dataPelatih->dataUser->alamat }}</td>
                                 <td align="center">{{ $row->tanggal }}</td>
-                                <td align="center">{{ $row->runtutanke }}</td>
+                                <td align="center">{{ $row->latihan_ke }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('hasil.show',$row->id) }}" class="btn btn-warning btn-flat mr-2">
+                                        <a href="{{ route('hasil.edit',$row->id) }}" class="btn btn-warning btn-flat mr-2">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
                                     </div>

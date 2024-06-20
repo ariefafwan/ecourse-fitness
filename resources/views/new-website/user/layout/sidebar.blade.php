@@ -17,8 +17,8 @@
           <a href="#" class="nav-link has-dropdown"><i class="fas fa-ellipsis-h"></i> <span>Program Latihan</span></a>
           <ul class="dropdown-menu">
             <li class="{{ ($page == "Anda Sudah Memesan Pelatih" || $page == 'Order Pelatih Anda') ? 'active' : '' }}"><a href="{{ route('permintaan.index') }}">Permintaan Latihan</a></li> 
-            <li class="{{ ($page == "Program Berjalan Anda") ? 'active' : '' }}"><a href="{{ route('hasil.index') }}">Program Berjalan</a></li>
-            <li class="{{ ($page == "Program Latihan Selesai") ? 'active' : '' }}"><a href="{{ route('hasil.create') }}">Hasil Latihan</a></li>
+            <li class="{{ ($page == "Program Berjalan Anda" || $page == 'Detail Latihan Anda') ? 'active' : '' }}"><a href="{{ route('hasil.index') }}">Program Berjalan</a></li>
+            <li class="{{ ($page == "Program Latihan Selesai" || $page == 'Hasil Latihan Anda') ? 'active' : '' }}"><a href="{{ route('hasil.create') }}">Hasil Latihan</a></li>
           </ul>
         </li>
       </ul>        

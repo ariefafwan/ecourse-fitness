@@ -17,7 +17,7 @@
                                 <th class="text-center">Alamat</th>
                                 <th class="text-center">Tanggal Latihan</th>
                                 <th class="text-center">Runtutan Latihan Ke</th>
-                                <th class="text-center">Lihat Detail Latihan</th>
+                                <th class="text-center">Lakukan Latihan</th>
 
                             </tr>
                         </thead>
@@ -26,9 +26,9 @@
                             @foreach($program as $index => $row)
                             <tr align="center">
                                 <th>{{ $loop->iteration }}</th>
-                                <td align="center">{{ $row->pelatih->name }}</td>
-                                <td align="center">{{ $row->pelatih->no_hp }}</td>
-                                <td align="center">{{ $row->pelatih->alamat }}</td>
+                                <td align="center">{{ $row->dataPelatih->dataUser->name }}</td>
+                                <td align="center">{{ $row->dataPelatih->dataUser->no_hp }}</td>
+                                <td align="center">{{ $row->dataPelatih->dataUser->alamat }}</td>
                                 <td align="center">{{ $row->tanggal }}</td>
                                 <td align="center">{{ $row->latihan_ke }}</td>
                                 <td>

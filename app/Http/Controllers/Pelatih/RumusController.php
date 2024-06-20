@@ -23,8 +23,8 @@ class RumusController extends Controller
     {
         $user = Auth::user();
         $page = "Daftar Rumus Latihan";
-        $rumus = LatihanPelatih::all();
         $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        $rumus = LatihanPelatih::where('id_pelatih', $pelatih[0]->id)->get();
         return view('new-website.pelatih.rumus.daftar', compact('user', 'page', 'rumus', 'pelatih'));
     }
 
@@ -37,8 +37,8 @@ class RumusController extends Controller
     {
         $user = Auth::user();
         $page = "Tambah Rumus Latihan";
-        $rumus = LatihanPelatih::all();
         $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        $rumus = LatihanPelatih::where('id_pelatih', $pelatih[0]->id)->get();
         return view('new-website.pelatih.rumus.create', compact('user', 'page', 'rumus', 'pelatih'));
     }
 

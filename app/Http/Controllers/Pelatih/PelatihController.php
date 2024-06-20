@@ -41,9 +41,9 @@ class PelatihController extends Controller
         }
 
         $userid = Permintaan::all()->where('id_pelatih', $pelatih[0]->id)->where('status', 'Diterima')->get('id_user');
-        $program = ProgramLatihan::all()->where('id_user', $userid)->count();
+        // $program = ProgramLatihan::all()->where('id_user', $userid)->count();
 
-        return view('new-website.pelatih.permintaan.terima', compact('user', 'page', 'permintaan', 'userid', 'program', 'pelatih'));
+        return view('new-website.pelatih.permintaan.terima', compact('user', 'page', 'permintaan', 'userid', 'pelatih'));
     }
 
     public function tolak()
@@ -64,10 +64,10 @@ class PelatihController extends Controller
         $page = "Tambah Program";
         $user = User::findOrFail($id);
         $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
-        $rumus = LatihanPelatih::where('id_pelatih', $pelatih[0]->id)->get;
+        $rumus = LatihanPelatih::where('id_pelatih', $pelatih[0]->id)->get();
         $permintaan = Permintaan::where('id_user', $user->id)->get();
-        $program = ProgramLatihan::all()->where('id_user', $user->id)->count();
-        return view('new-website.pelatih.program.create', compact('page', 'user', 'rumus', 'pelatih', 'permintaan', 'program'));
+        // $program = ProgramLatihan::all()->where('id_user', $user->id)->count();
+        return view('new-website.pelatih.program.create', compact('page', 'user', 'rumus', 'pelatih', 'permintaan'));
     }
 
     public function update_rumus_detail(Request $request, $id)

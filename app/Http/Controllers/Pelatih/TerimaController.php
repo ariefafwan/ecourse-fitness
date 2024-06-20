@@ -80,9 +80,9 @@ class TerimaController extends Controller
     {
         $user = Auth::user();
         $page = "Tambah Program";
-        $rumus = LatihanPelatih::all();
         $program = ProgramLatihan::findOrFail($id);
         $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
+        $rumus = LatihanPelatih::where('id_pelatih', $pelatih[0]->id)->get();
         return view('new-website.pelatih.program.tambah', compact('user', 'page', 'program', 'rumus', 'pelatih'));
     }
 

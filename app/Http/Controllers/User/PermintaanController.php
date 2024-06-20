@@ -25,7 +25,7 @@ class PermintaanController extends Controller
         $user = Auth::user();
         $pelatih = Pelatih::all();
 
-        $permintaan = Permintaan::all()->where('id_user', Auth::user()->id)->where('status', 'Menunggu');
+        $permintaan = Permintaan::all()->where('id_user', Auth::user()->id);
 
         $aspek = Fokus::all()->where('id_user', Auth::user()->id);
         if ($aspek->isEmpty()) {

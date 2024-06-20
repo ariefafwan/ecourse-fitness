@@ -51,18 +51,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="btn-group mt-5 ml-3 align-items-center">
-                            {{-- <a href="" class="btn btn-primary profile-button"><i class="fa fa-check" aria-hidden="true"></i> <span>Selesaikan Latihan</span></a> --}}
-                            <form id="program-update-form-{{$program->id}}" action="{{ route('hasil.update',$program->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                            </form>
-                            <a href="javascript:void(0)" class="btn btn-success rounded"
-                                onclick="event.preventDefault();
-                                    document.getElementById('program-update-form-{{$program->id}}').submit();">
-                                <i class="fa fa-check" aria-hidden="true"></i> <span>Selesaikan Latihan</span>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>

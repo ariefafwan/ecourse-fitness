@@ -3,7 +3,6 @@
 @section('content')
 
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Berikan Program Latihan Kepada Costumer</h1>
     <div class="row">
     <div class="container">
         <div class="col-xs-12">
@@ -17,7 +16,7 @@
                                 <th class="text-center">Nomor Handphone</th>
                                 <th class="text-center">Alamat</th>
                                 <th class="text-center">Fokus Latihan</th>
-                                <th class="text-center">Jumlah Program</th>
+                                <th class="text-center">Program Telah Diberikan</th>
                                 <th class="text-center">Berikan Rumus & Tanggal Latihan</th>
 
                             </tr>
@@ -27,56 +26,45 @@
                             @foreach($permintaan as $index => $row)
                             <tr align="center">
                                 <th>{{ $loop->iteration }}</th>
-                                <td align="center">{{ $row->user->name }}</td>
-                                <td align="center">{{ $row->user->nmrhp }}</td>
-                                <td align="center">{{ $row->user->alamat }}</td>
+                                <td align="center">{{ $row->dataUser->name }}</td>
+                                <td align="center">{{ $row->dataUser->no_hp }}</td>
+                                <td align="center">{{ $row->dataUser->alamat }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        {{-- <a href="" class="btn btn-primary btn-flat"><i class="fa fa-eye"></i></a> --}}
                                         <a href="{{ route('terima.show',$row->id) }}" class="btn btn-warning btn-flat mr-2">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                 </td>
-                                <td align="center">{{ $program }}</td>
+                                <td align="center">{{ $row->dataProgramLatihan->count() }}</td>
                                 <td>
                                 <div class="btn-group">
                                     <form id="program-create-form" action="{{ route('program.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
-                                        @foreach ($pelatih as $p)
-                                        <input type="hidden" class="form-control" id="pelatih_id" name="pelatih_id" value="{{ $p->id }}" required>
-                                        @endforeach
-                                        <input type="hidden" class="form-control" id="id_user_pelatih" name="id_user_pelatih" value="{{ Auth::user()->id }}" required>
-                                        <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{ $row->user->id }}" required>
-                                        <input type="hidden" class="form-control" id="permintaan_id" name="permintaan_id" value="{{ $row->id }}" required>
-                                        <input type="hidden" class="form-control" id="status" name="status" value="Berjalan" required>
-                                        <input type="hidden" class="form-control" id="runtutanke" name="runtutanke" value="1" required>
+                                        <input type="hidden" class="form-control" id="id_pelatih" name="id_pelatih" value="{{ $pelatih[0]->id }}" required>
+                                        <input type="hidden" class="form-control" id="id_user" name="id_user" value="{{ $row->id_user }}" required>
+                                        <input type="hidden" class="form-control" id="id_permintaan" name="id_permintaan" value="{{ $row->id }}" required>
+                                        <input type="hidden" class="form-control" id="status" name="status" value="Belum Dikerjakan" required>
                                         <div class="col-md-12">
-                                            <label class="labels">Tanggal Latihan</label>
-                                            <input type="date" name="tgl" id="tgl" class="form-control" placeholder="Tanggal Latihan" required>
+                                            <label class="tanggal">Tanggal Latihan</label>
+                                            <input type="date" name="tanggal" id="tanggal" class="form-control" placeholder="Tanggal Latihan" required>
                                         </div>
-                
                                         <div class="col-md-12 mt-2">
-                                            <label for="user_id">Pilih Rumus Latihan</label>
-                                            <select class="form-select" aria-label="Default select example" name="kind_id" required>
+                                            <label for="id_latihan_pelatih">Pilih Rumus Latihan</label>
+                                            <select id="id_latihan_pelatih" class="form-control" aria-label="Default select example" name="id_latihan_pelatih" required>
                                                 <option selected>-- Pilih --</option>
                                                 @foreach ($rumus as $row)
-                                                    <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                                    <option value="{{ $row->id }}">{{ $row->nama_latihan }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </form>
-                                    {{-- <a href="javascript:void(0)" class="btn btn-primary btn-flat"
-                                        onclick="event.preventDefault();
-                                        document.getElementById('program-create-form-{{$row->id}}').submit();">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </a> --}}
                                 </div>
-                                <div class="btn-group">
+                                <div class="btn-group mt-1">
                                     <a href="javascript:void(0)" class="btn btn-primary btn-flat"
                                         onclick="event.preventDefault();
                                         document.getElementById('program-create-form').submit();">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                        <i class="fa fa-plus" aria-hidden="true"></i> <span>Tambah Program Latihan</span>
                                     </a>
                                 </div>
                                 </td>

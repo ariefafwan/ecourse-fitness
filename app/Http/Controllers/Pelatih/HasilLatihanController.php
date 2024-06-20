@@ -8,6 +8,7 @@ use App\Models\LatihanPelatih;
 use App\Models\Pelatih;
 use App\Models\Program;
 use App\Models\ProgramLatihan;
+use App\Models\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,8 +25,17 @@ class HasilLatihanController extends Controller
         $user = Auth::user();
         $page = "Hasil Program";
         $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
-        $program = ProgramLatihan::latest()->orderBy('created_at', 'desc')->where('status', 'Selesai')->paginate(10);
-        $rumus = LatihanPelatih::all();
+        // $program = ProgramLatihan::select('id', 'id_user', 'tanggal', 'id_latihan_pelatih', 'id_pelatih', 'status')->where('status', 'Selesai')->selectRaw('MAX(latihan_ke) as latihan_ke)')->orderBy('latihan_ke', 'desc')->get();
+        $user = User::whereHas('dataProgramLatihan', function ($q) {
+            $q->where('status', 'Selesai');
+        })->get();
+        $program = [];
+        foreach ($user as $index => $row) {
+            $programlatihan = ProgramLatihan::where('status', 'Selesai')->where('id_user', $row->id)->orderBy('latihan_ke', 'desc')->first();
+            $program[] = $programlatihan;
+        }
+        // dd($program);
+        $rumus = LatihanPelatih::where('id_pelatih', $pelatih[0]->id)->get();
 
         return view('new-website.pelatih.program.selesai', compact('user', 'page', 'program', 'rumus', 'pelatih'));
     }

@@ -61,4 +61,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Permintaan::class);
     }
+
+    public function dataProgramLatihan()
+    {
+        return $this->hasMany(ProgramLatihan::class, 'id_user', 'id');
+    }
 }

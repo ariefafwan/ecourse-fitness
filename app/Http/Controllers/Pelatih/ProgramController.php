@@ -26,7 +26,7 @@ class ProgramController extends Controller
         $page = "Berikan Program Anda";
         $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
         $permintaan = Permintaan::doesntHave('dataProgramLatihan')->where('id_pelatih', $pelatih[0]->id)->where('status', 'Terima')->orderBy('created_at', 'desc')->get();
-        $rumus = LatihanPelatih::all();
+        $rumus = LatihanPelatih::where('id_pelatih', $pelatih[0]->id)->get();
         if ($permintaan->isEmpty()) {
             return view('new-website.pelatih.program.belum', compact('user', 'page', 'permintaan', 'rumus', 'pelatih'));
         }
@@ -44,7 +44,7 @@ class ProgramController extends Controller
         $user = Auth::user();
         $page = "Program Berjalan";
         $pelatih = Pelatih::all()->where('id_user', Auth::user()->id);
-        $program = ProgramLatihan::OrderBy('tgl', 'asc')->where('status', 'Berjalan')->where('id_pelatih', $pelatih[0]->id)->paginate(10);
+        $program = ProgramLatihan::OrderBy('tanggal', 'asc')->where('status', 'Belum Dikerjakan')->where('id_pelatih', $pelatih[0]->id)->paginate(10);
 
         return view('new-website.pelatih.program.berjalan', compact('user', 'page', 'program', 'pelatih'));
     }
@@ -57,13 +57,15 @@ class ProgramController extends Controller
      */
     public function store(Request $request)
     {
+        $permintaan = Permintaan::findOrFail($request->id_permintaan);
+
         $dtUpload = new ProgramLatihan();
         $dtUpload->id_user = $request->id_user;
         $dtUpload->id_pelatih = $request->id_pelatih;
         $dtUpload->id_permintaan = $request->id_permintaan;
         $dtUpload->status = $request->status;
         $dtUpload->tanggal = $request->tanggal;
-        $dtUpload->latihan_ke = $request->latihan_ke;
+        $dtUpload->latihan_ke = $permintaan->dataProgramLatihan->count() + 1;
         $dtUpload->id_latihan_pelatih = $request->id_latihan_pelatih;
 
         $dtUpload->save();

@@ -16,7 +16,7 @@
                                 <th class="text-center">Nomor Handphone</th>
                                 <th class="text-center">Alamat</th>
                                 <th class="text-center">Runtutan Ke</th>
-                                <th class="text-center">Rumus Program</th>
+                                <th class="text-center">Program Latihan</th>
                                 <th class="text-center">Tanggal Latihan</th>
                                 <th class="text-center">Status</th>
 
@@ -27,23 +27,23 @@
                             @foreach($program as $index => $row)
                             <tr align="center">
                                 <th>{{ $loop->iteration }}</th>
-                                <td align="center">{{ $row->user->name }}</td>
-                                <td align="center">{{ $row->user->nmrhp }}</td>
-                                <td align="center">{{ $row->user->alamat }}</td>
-                                <td align="center">{{ $row->runtutanke }}</td>
-                                <td align="center">{{ $row->kind->name }}</td>
-                                <td align="center">{{ $row->tgl }}</td>
+                                <td align="center">{{ $row->dataPelatih->dataUser->name }}</td>
+                                <td align="center">{{ $row->dataPelatih->dataUser->nmrhp }}</td>
+                                <td align="center">{{ $row->dataPelatih->dataUser->alamat }}</td>
+                                <td align="center">{{ $row->latihan_ke }}</td>
+                                <td align="center">{{ $row->dataLatihanPelatih->nama_latihan }}</td>
+                                <td align="center">{{ $row->tanggal }}</td>
                                 <td>
                                     <div class="btn-group" >
                                         <form id="program-update-form-{{$row->id}}" action="{{ route('program.update',$row->id) }}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                            <select class="form-select" name="status" id="status" aria-label="Floating label select example" required>
+                                            <select class="form-control" name="status" id="status" aria-label="Floating label select example" required>
                                                 <option selected aria-required="true">{{ $row->status }}</option>
                                                 <option value="Selesai">Selesai</option>
                                             </select>
                                         </form>
-                                        <a href="javascript:void(0)" class="btn btn-success ml-3"
+                                        <a href="javascript:void(0)" class="btn btn-success ml-3 rounded"
                                             onclick="event.preventDefault();
                                                 document.getElementById('program-update-form-{{$row->id}}').submit();">
                                             <i class="fa fa-check" aria-hidden="true"></i>

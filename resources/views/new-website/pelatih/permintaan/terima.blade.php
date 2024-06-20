@@ -38,7 +38,7 @@
                                     </div>
                                 </td>
                                 <td align="center">{{ $row->status }}</td>
-                                <td align="center">{{ $program }}</td>
+                                <td align="center">{{ $row->dataProgramLatihan->count() }}</td>
                                 <td align="center">
                                     <div class="btn-group">
                                         <a href="{{ route('tambahprogram', $row->id_user) }}" class="btn btn-primary btn-flat mr-2">
